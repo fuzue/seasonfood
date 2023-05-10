@@ -26,8 +26,8 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "vite --base=/season-food/",
-    "build": "vite build --base=/season-food/",
+    "start": "vite --base=/seasonfood/",
+    "build": "vite build --base=/seasonfood/",
     "serve": "vite preview"
   },
   "eslintConfig": {

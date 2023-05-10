@@ -18,13 +18,13 @@ function App() {
   const currentMonth = date.getMonth()
 
   return (
-    <BrowserRouter basename={"/season-food"}>
+    <BrowserRouter basename={"/seasonfood"}>
       <div className="App">
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Navigate to={`/month/${monthEng[currentMonth]}`} replace />} />
             <Route path="/foodpage/:id" element={<FoodPage />}/>
-            <Route path="/month/:selectedMonthName" element={<FoodOfTheMonth />} />            
+            <Route path="/month/:selectedMonthName" element={<FoodOfTheMonth />} />
           </Route>
         </Routes>
       </div>
