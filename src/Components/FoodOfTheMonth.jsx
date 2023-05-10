@@ -4,7 +4,7 @@ import food from '../ITALIA-fruits-and-veggies.csv'
 import { useParams, Link } from 'react-router-dom'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import { Box } from "@mui/material"
+import { Box, Grid } from "@mui/material"
 import { styled, alpha } from '@mui/material/styles'
 import ArrowLeftIcon from '@mui/icons-material/ArrowCircleLeftOutlined'
 import ArrowRightIcon from '@mui/icons-material/ArrowCircleRightOutlined';
@@ -47,11 +47,11 @@ function FoodOfTheMonth() {
   const RenderFruits = () => RenderFoods(fruitsList)
   const RenderVeggies = () => RenderFoods(veggiesList)
   //const RenderOthers = () => RenderFoods(othersList)
-  
+
   //variables to handle the changint tabs
   const [value, setValue] = useState('Fruits')
-  const handleChange = (event, newValue) => {setValue(newValue)}
-  
+  const handleChange = (event, newValue) => { setValue(newValue) }
+
   //function to render the different types according to the tab
   const changeTab = (value) => {
     switch (value) {
@@ -61,7 +61,7 @@ function FoodOfTheMonth() {
         return <RenderVeggies />
       /* case "Others":
         return  <RenderOthers />*/
-        //temporary image 
+      //temporary image 
     }
   }
 
@@ -71,8 +71,8 @@ function FoodOfTheMonth() {
 
   //styled MUI arrows
   const ArrowButton = styled(Link)(({ theme }) => ({
-    color:  alpha(theme.palette.common.black, 0.75),
-    width: '2em', 
+    color: alpha(theme.palette.common.black, 0.75),
+    width: '2em',
     '&:hover': {
       color: alpha(theme.palette.common.black, 0.95),
     },
@@ -82,10 +82,11 @@ function FoodOfTheMonth() {
     },
   }));
 
-  const ItemsBox = styled(Box)(({theme}) => ({
-    borderRadius: theme.shape.borderRadius,
-    margin: '0',
-    display: 'flex',  
+  const ItemsGrid = styled(Grid)(({ theme }) => ({
+    margin: '0.5em',
+    display: 'flex',
+    justifyContent:'space-around', 
+    alignItems: 'center',
   }))
 
   return (
@@ -93,13 +94,13 @@ function FoodOfTheMonth() {
       <div className="month-container">
         <div className="selected-month">
           <ArrowButton to={`/month/${prevMonth}`}>
-            <ArrowLeftIcon/>
+            <ArrowLeftIcon />
           </ArrowButton>
-          <div className="month-title"> 
-            <h4 >{monthEng[monthNum]}</h4> 
+          <div className="month-title">
+            <h4 >{monthEng[monthNum]}</h4>
           </div>
           <ArrowButton to={`/month/${nextMonth}`}>
-            <ArrowRightIcon/>
+            <ArrowRightIcon />
           </ArrowButton>
         </div>
         <p className="food-counter-text">{fruitsList.length} fruits and {veggiesList.length} vegetables in season this month</p>
@@ -107,17 +108,19 @@ function FoodOfTheMonth() {
           <Tabs
             value={value}
             onChange={handleChange}
-            sx={{ fontWeight: 700}}
+            sx={{ fontWeight: 700 }}
             aria-label="tabs for the selection of fruits, vegetables or others">
             <Tab label="Fruits" value="Fruits" />
             <Tab label="Veggies" value="Veggies" />
             {/* <Tab label="Others" value="Others"  /> */}
           </Tabs>
         </div>
-        <ItemsBox> 
-        {changeTab(value)}
-        </ItemsBox>
-        
+        <ItemsGrid
+          container
+          alignItems='center'
+        >
+          {changeTab(value)}
+        </ItemsGrid>
       </div>
     </Box>
   );

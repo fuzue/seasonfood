@@ -6,8 +6,10 @@ import { styled } from '@mui/material/styles'
 const StyledGrid = styled(Grid)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-around',
-  alignItems: 'center',
-  margin: '0.25em',
+  alignItems: 'flex-end',
+  [theme.breakpoints.up('md')]: {
+    
+  },
 }))
 
 //render the grid of foods 
@@ -17,6 +19,7 @@ function RenderFoods(foodList) {
       <Grid item
         xs={4}
         key={item.id}
+        
       >
         <Item
           key={item.id}
