@@ -3,7 +3,7 @@ import food from '../ITALIA-fruits-and-veggies.csv'
 import { monthEng, currentMonth } from './FoodOfTheMonth'
 import { useParams, useNavigate } from "react-router-dom"
 import Grid from '@mui/material/Grid'
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
 //import Link from '@mui/material/Link'
@@ -39,7 +39,10 @@ function FoodPage(props) {
       }
     }
     else {
-      return { color: 'gray' }
+      return { 
+      color: 'gray',
+      backgroundColor: '#fefefe',  
+    }
     }
   }
   const BackButton = styled(Button)(({ theme }) => ({
@@ -48,18 +51,7 @@ function FoodPage(props) {
     position: 'absolute',
     left: '80%',
     top: '14%',
-   
 
-  }));
-
-  const StyledButton = styled(Button)(({ theme }) => ({
-    width: '7.1em',
-    borderRadius: '6px',
-    margin: ' 0.5em 0.25em',
-    '&:hover': {
-      backgroundColor: 'rgba(19, 191, 142, 0.711)',
-      color: 'rgba(4, 44, 33, 0.711)'
-    },
 
   }));
 
@@ -70,6 +62,14 @@ function FoodPage(props) {
     maxHeight: '160px',
   }));
 
+  const GridBox = styled(Box)(({ theme }) => ({
+    width: '6em',
+    borderRadius: '6px',
+    height: '2.5em',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',  
+  }));
 
   function renderMonths() {
     return monthEng.map(month => {
@@ -77,16 +77,15 @@ function FoodPage(props) {
         <Grid item
           className="grid-item"
           xs={4}
-          key={month.toString()}>
-          <Link to={`/month/${month}`}>
-            <StyledButton
-          
-              sx={monthColor(month)}
-              size="medium"
+          key={month.toString()}
+        >
+          <GridBox
+            sx={monthColor(month)}>
+            <Link to={`/month/${month}`}
             >
               {month}
-            </StyledButton>
-          </Link>
+            </Link>
+          </GridBox>
         </Grid>
       )
     })
@@ -98,15 +97,15 @@ function FoodPage(props) {
       justifyContent="space-between"
       alignItems="center">
       <div key={food.id}>
-          <BackButton 
-            variant="outlined" 
-            onClick={() => backBtn(-1)}>back
-           </BackButton>
+        <BackButton
+          variant="outlined"
+          onClick={() => backBtn(-1)}>back
+        </BackButton>
         <Box
           display='flex'
           justifyContent='center'
           textAlign='left'
-          marginTop='1.5em;'
+          marginTop='1.5em'
         >
           <ImgBox>
             <img className='foodPage-image' src={`../images/${image}.png`} alt={`photo of ${image}`} />
@@ -121,21 +120,18 @@ function FoodPage(props) {
             <p>{seasonStatus}</p>
           </div>
         </Box>
-        <Box>
-          <h4 className="months-in-season-title" > Months in season </h4>
-          <Box
-            flex
-            justifyContent="space-between"
-            alignItems="center"
+        {/* BOTTOM GRID WITH MONTHS */}
+        <Box
+          sx={{
+            margin: '1em ',
+          }}>
+          <Typography marginY={2} variant="h6" > Months in season </Typography>
+          <Grid className="grid-container" container
+            direction="row"
+            spacing={3}
           >
-            <Grid className="grid-container" container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              {renderMonths()}
-            </Grid>
-          </Box>
+            {renderMonths()}
+          </Grid>
         </Box>
       </div>
     </Box>
