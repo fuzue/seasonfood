@@ -64,7 +64,11 @@ function Layout() {
     margin: '0 auto',
     paddingBottom: '1em',
     minHeight: '100%',
-    boxShadow: '3px 4px 8px #888888'
+    boxShadow: '3px 4px 8px #888888',
+    [theme.breakpoints.up('md')]: {
+      maxWidth:'650px',
+      width: '100%'
+    },
   }));
 
   

@@ -126,7 +126,7 @@ function FoodPage(props) {
             margin: '1em ',
           }}>
           <Typography marginY={2} variant="h6" > Months in season </Typography>
-          <Grid className="grid-container" container
+          <Grid container
             direction="row"
             spacing={3}
           >
