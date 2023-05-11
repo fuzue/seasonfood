@@ -35,14 +35,14 @@ const theme = createTheme({
   },
 });
 
-function Layout({food}) {
+function Layout({food} : {food: Food}) {
   const [ifSearched, setIfSearched] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
 
   const closeModal = () => setIfSearched(false);
   const openModal = () => setIfSearched(true);
 
-  const onSearch = (query, food) => {
+  const onSearch = (query: string, food) => {
     if (query != "") {
       setIfSearched(true);
       setSearchResults(food);
@@ -64,13 +64,7 @@ function Layout({food}) {
   //side drawer code
   const [state, setState] = useState(false);
 
-  const toggleDrawer = (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
+  const toggleDrawer = () => {
     setState(!state);
   };
   const list = (
@@ -83,7 +77,6 @@ function Layout({food}) {
       }}
       role="presentation"
       onClick={toggleDrawer}
-      onKeyDown={toggleDrawer}
     >
       <nav>
         <ListItem disablePadding>

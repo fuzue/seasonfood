@@ -26,7 +26,7 @@ const monthEng = [
 const date = new Date();
 const currentMonth = date.getMonth();
 
-function FoodOfTheMonth({food}) {
+function FoodOfTheMonth({food} : {food: Food}) {
   const { selectedMonthName } = useParams();
   const monthNum = monthEng.findIndex((month) => month === selectedMonthName);
 

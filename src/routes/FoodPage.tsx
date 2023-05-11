@@ -6,10 +6,10 @@ import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 
-function FoodPage(props, {food}) {
+function FoodPage({food}: {food: Food}) {
   const { id } = useParams();
   const selectedFood = food.find((f) => f.id === id);
-  const seasonMonths = []; //  months array to update the list of months in season
+  const seasonMonths = [] as string[]; //  months array to update the list of months in season
   let seasonStatus = ""; // status of the specific fruit or vegetable
 
   for (let i = 0; i < 12; i++) {
@@ -78,7 +78,7 @@ function FoodPage(props, {food}) {
 
   return (
     <Box marginX={1} flex justifyContent="space-between" alignItems="center">
-      <div key={food.id}>
+      <div>
         <BackButton variant="outlined" onClick={() => backBtn(-1)}>
           back
         </BackButton>
