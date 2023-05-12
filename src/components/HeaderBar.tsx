@@ -27,7 +27,7 @@ export default function HeaderBar(props: Props) {
     }
   });
 
-  const handleSubmit = (event: SubmitEvent) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const foundFoods = searchFilterFood(props.food);
     props.onSearch(query.current.value, foundFoods);
     event.preventDefault();
@@ -124,7 +124,7 @@ export default function HeaderBar(props: Props) {
               <SearchIcon type="submit" />
             </IconButton>
           </SearchIconWrapper>
-          <form onSubmit={() => handleSubmit}>
+          <form onSubmit={e => handleSubmit(e)}>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
