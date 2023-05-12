@@ -37,7 +37,7 @@ const theme = createTheme({
 
 function Layout({food} : {food: Food}) {
   const [ifSearched, setIfSearched] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState([] as Food);
 
   const closeModal = () => setIfSearched(false);
   const openModal = () => setIfSearched(true);
