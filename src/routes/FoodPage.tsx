@@ -1,10 +1,8 @@
 import { monthEng, currentMonth } from "./FoodOfTheMonth";
-import { useParams, useNavigate } from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import { Box, Typography } from "@mui/material";
-import Button from "@mui/material/Button";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+
 
 function FoodPage({food}: {food: Food}) {
   const { id } = useParams();
@@ -49,14 +47,13 @@ function FoodPage({food}: {food: Food}) {
     top: "14%",
   }));
 
-  const StyledButton = styled(Button)(() => ({
-    width: "7.1em",
-    borderRadius: "6px",
-    margin: " 0.5em 0.25em",
-    "&:hover": {
-      backgroundColor: "rgba(19, 191, 142, 0.711)",
-      color: "rgba(4, 44, 33, 0.711)",
-    },
+  const GridBox = styled(Box)(() => ({
+    width: '6em',
+    borderRadius: '6px',
+    height: '2.5em',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',  
   }));
 
   const ImgBox = styled(Box)(() => ({
@@ -66,16 +63,22 @@ function FoodPage({food}: {food: Food}) {
     maxHeight: "160px",
   }));
 
-  function renderMonths() {
+  const renderMonths = () => {
     return monthEng.map((month) => {
       return (
-        <Grid item className="grid-item" xs={4} key={month.toString()}>
-          <Link to={`/month/${month}`}>
-            <StyledButton sx={monthColor(month)} size="medium">
-              {month}
-            </StyledButton>
+        <Grid item
+        className="grid-item"
+        xs={4}
+        key={month.toString()}
+      >
+        <GridBox
+          sx={monthColor(month)}>
+          <Link to={`/month/${month}`}
+          >
+            {month}
           </Link>
-        </Grid>
+        </GridBox>
+      </Grid>
       );
     });
   }
@@ -98,29 +101,34 @@ function FoodPage({food}: {food: Food}) {
         <ImgBox>
           <img className='foodPage-image' src={`../images/${image}.png`} alt={`photo of ${image}`} />
         </ImgBox>
-        <div className="season-status">
-          <span className='season-status-title'>
-            {/*  <Link target="_blank" href={`https://en.wikipedia.org/wiki/${selectedFood.nameEng}`}>
-              <img className="wiki-logo" src="../wiki-logo.png" />
-            </Link> */}
-            <h3>{selectedFood.nameEng}:</h3>
-          </span>
-          <p>{seasonStatus}</p>
-        </div>
+        <Box  
+        marginLeft= '1em'  
+        marginTop= '0'
+        display= "flex"
+        flexDirection="column"
+        alignItems= "left"
+        justifyContent= "center"
+        width="50%">
+          <Typography variant="h6">
+            {selectedFood.nameEng}:
+          </Typography>
+          <Typography variant="p">{seasonStatus}</Typography>
+        </Box>
       </Box>
+      
       {/* BOTTOM GRID WITH MONTHS */}
       <Box
-        sx={{
-          margin: '1em ',
-        }}>
-        <Typography marginY={2} variant="h6" > Months in season </Typography>
-        <Grid container
-          direction="row"
-          spacing={3}
-        >
-          {renderMonths()}
-        </Grid>
-      </Box>
+          sx={{
+            margin: '1em ',
+          }}>
+          <Typography marginY={2} variant="h6" > Months in season </Typography>
+          <Grid container
+            direction="row"
+            spacing={3}
+          >
+            {renderMonths()}
+          </Grid>
+        </Box>
     </Box>
   );
 }

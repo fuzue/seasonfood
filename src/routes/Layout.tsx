@@ -21,7 +21,7 @@ const theme = createTheme({
     },
     secondary: {
       main: "#ff7664", //red
-      dark: "#4071d8"
+      dark: "#4071d8" //blue
     },
   },
   breakpoints: {
