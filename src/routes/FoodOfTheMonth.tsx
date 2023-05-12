@@ -1,5 +1,5 @@
 import RenderFoods from "../components/RenderFoods";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -7,6 +7,8 @@ import { Box } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import ArrowLeftIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import ArrowRightIcon from "@mui/icons-material/ArrowCircleRightOutlined";
+
+type FoodType = "Fruits" | "Veggies"
 
 const monthEng = [
   "January",
@@ -37,33 +39,28 @@ function FoodOfTheMonth({food} : {food: Food}) {
     }
   }
   //filters the fruits and vegetables
-  const filterFoodType = (monthFood, foodType) =>
+  const filterFoodType = (monthFood: Food, foodType: FoodType) =>
     monthFood.filter((item) => item.type === foodType);
   const fruitsList = filterFoodType(monthFood, "Fruits");
   const veggiesList = filterFoodType(monthFood, "Veggies");
-  //const othersList = filterFoodType(monthFood, 'Other')
 
   //renders the fruits, veggies and others
   const RenderFruits = () => RenderFoods(fruitsList);
   const RenderVeggies = () => RenderFoods(veggiesList);
-  //const RenderOthers = () => RenderFoods(othersList)
 
   //variables to handle the changing tabs
-  const [value, setValue] = useState("Fruits");
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const [foodType, setFoodType] = useState("Fruits" as FoodType);
+  const handleChange = (event: ChangeEvent<EventTarget>, newFoodType: FoodType) => {
+    setFoodType(newFoodType);
   };
 
   //function to render the different types according to the tab
-  const changeTab = (value: "Fruits" | "Veggies") => {
-    switch (value) {
+  const changeTab = (foodType: FoodType) => {
+    switch (foodType) {
       case "Fruits":
         return <RenderFruits />;
       case "Veggies":
         return <RenderVeggies />;
-      /* case "Others":
-        return  <RenderOthers />*/
-      //temporary image
     }
   };
 
@@ -110,17 +107,16 @@ function FoodOfTheMonth({food} : {food: Food}) {
         </p>
         <div className="button-wrapper">
           <Tabs
-            value={value}
-            onChange={handleChange}
+            value={foodType}
+            onChange={(e, value) => handleChange(e, value)}
             sx={{ fontWeight: 700 }}
             aria-label="tabs for the selection of fruits, vegetables or others"
           >
             <Tab label="Fruits" value="Fruits" />
             <Tab label="Veggies" value="Veggies" />
-            {/* <Tab label="Others" value="Others"  /> */}
           </Tabs>
         </div>
-        <ItemsBox>{changeTab(value)}</ItemsBox>
+        <ItemsBox>{changeTab(foodType)}</ItemsBox>
       </div>
     </Box>
   );

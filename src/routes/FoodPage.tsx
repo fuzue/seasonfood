@@ -1,7 +1,7 @@
 import { monthEng, currentMonth } from "./FoodOfTheMonth";
 import { useParams, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
@@ -29,12 +29,16 @@ function FoodPage({food}: {food: Food}) {
   const monthColor = (month: string) => {
     if (seasonMonths.includes(month)) {
       return {
-        backgroundColor: "primary.main",
-        color: "#fff",
-        boxShadow: "3px 4px 8px #888888",
-      };
-    } else {
-      return { color: "gray" };
+        backgroundColor: 'primary.main',
+        color: 'primary.light',
+        boxShadow: '3px 4px 8px #888888'
+      }
+    }
+    else {
+      return { 
+        color: 'gray',
+        backgroundColor: 'primary.light'
+      }
     }
   };
   const BackButton = styled(Button)(() => ({
@@ -77,49 +81,46 @@ function FoodPage({food}: {food: Food}) {
   }
 
   return (
-    <Box marginX={1} justifyContent="space-between" alignItems="center">
-      <div>
-        <BackButton variant="outlined" onClick={() => backBtn(-1)}>
-          back
-        </BackButton>
-        <Box
-          display="flex"
-          justifyContent="center"
-          textAlign="left"
-          marginTop="1.5em;"
+    <Box
+      marginX={1}
+      justifyContent="space-between"
+      alignItems="center">
+      <BackButton
+        variant="outlined"
+        onClick={() => backBtn(-1)}>back
+      </BackButton>
+      <Box
+        display='flex'
+        justifyContent='center'
+        textAlign='left'
+        marginTop='1.5em'
+      >
+        <ImgBox>
+          <img className='foodPage-image' src={`../images/${image}.png`} alt={`photo of ${image}`} />
+        </ImgBox>
+        <div className="season-status">
+          <span className='season-status-title'>
+            {/*  <Link target="_blank" href={`https://en.wikipedia.org/wiki/${selectedFood.nameEng}`}>
+              <img className="wiki-logo" src="../wiki-logo.png" />
+            </Link> */}
+            <h3>{selectedFood.nameEng}:</h3>
+          </span>
+          <p>{seasonStatus}</p>
+        </div>
+      </Box>
+      {/* BOTTOM GRID WITH MONTHS */}
+      <Box
+        sx={{
+          margin: '1em ',
+        }}>
+        <Typography marginY={2} variant="h6" > Months in season </Typography>
+        <Grid container
+          direction="row"
+          spacing={3}
         >
-          <ImgBox>
-            <img
-              className="foodPage-image"
-              src={`../images/${image}.png`}
-              alt={`photo of ${image}`}
-            />
-          </ImgBox>
-          <div className="season-status">
-            <span className="season-status-title">
-              {/*  <Link target="_blank" href={`https://en.wikipedia.org/wiki/${selectedFood.nameEng}`}>
-                <img className="wiki-logo" src="../wiki-logo.png" />
-              </Link> */}
-              <h3>{selectedFood.nameEng}:</h3>
-            </span>
-            <p>{seasonStatus}</p>
-          </div>
-        </Box>
-        <Box>
-          <h4 className="months-in-season-title"> Months in season </h4>
-          <Box justifyContent="space-between" alignItems="center">
-            <Grid
-              className="grid-container"
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              {renderMonths()}
-            </Grid>
-          </Box>
-        </Box>
-      </div>
+          {renderMonths()}
+        </Grid>
+      </Box>
     </Box>
   );
 }
