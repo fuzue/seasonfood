@@ -48,14 +48,14 @@ function FoodOfTheMonth({food} : {food: Food}) {
   const RenderVeggies = () => RenderFoods(veggiesList);
   //const RenderOthers = () => RenderFoods(othersList)
 
-  //variables to handle the changint tabs
+  //variables to handle the changing tabs
   const [value, setValue] = useState("Fruits");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   //function to render the different types according to the tab
-  const changeTab = (value) => {
+  const changeTab = (value: "Fruits" | "Veggies") => {
     switch (value) {
       case "Fruits":
         return <RenderFruits />;

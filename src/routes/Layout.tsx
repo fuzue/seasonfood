@@ -16,12 +16,12 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#13bf8d",
-      white: "#f4fbeb",
-      blue: "#4071d8",
-      gray: "555766",
+      light: "#f4fbeb",
+      dark: "#555766"
     },
     secondary: {
       main: "#ff7664", //red
+      dark: "#4071d8"
     },
   },
   breakpoints: {
@@ -42,14 +42,14 @@ function Layout({food} : {food: Food}) {
   const closeModal = () => setIfSearched(false);
   const openModal = () => setIfSearched(true);
 
-  const onSearch = (query: string, food) => {
+  const onSearch = (query: string, food: Food) => {
     if (query != "") {
       setIfSearched(true);
       setSearchResults(food);
     }
   };
 
-  const MainBox = styled(Box)(({ theme }) => ({
+  const MainBox = styled(Box)(() => ({
     width: "100%",
     maxWidth: "450px",
     display: "flex",
@@ -67,6 +67,7 @@ function Layout({food} : {food: Food}) {
   const toggleDrawer = () => {
     setState(!state);
   };
+
   const list = (
     <Box
       sx={{

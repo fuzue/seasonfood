@@ -1,4 +1,4 @@
-import { createRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import Bar from "@mui/material/AppBar";
 import { styled, alpha } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,8 +8,15 @@ import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
-function AppBar(props) {
-  const query = createRef();
+type Props = {
+  ifSearched: boolean
+  food: Food
+  onSearch: (query: string, food: Food) => void
+  toggleDrawer: () => void
+}
+
+function AppBar(props: Props) {
+  const query = useRef() as React.MutableRefObject<HTMLFormElement>;
 
   useEffect(() => {
     if (props.ifSearched === false) {
@@ -17,13 +24,13 @@ function AppBar(props) {
     }
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: SubmitEvent) => {
     const foundFoods = searchFilterFood(props.food);
     props.onSearch(query.current.value, foundFoods);
     event.preventDefault();
   };
-  
-  const searchFilterFood = (food) => {
+
+  const searchFilterFood = (food: Food) => {
     if (query.current.value === "") {
       return food;
     }
@@ -76,7 +83,7 @@ function AppBar(props) {
     },
   }));
 
-  const StyledAppBar = styled(Bar)(({ theme }) => ({
+  const StyledAppBar = styled(Bar)(() => ({
     borderRadius: "2%",
     background: "#13bf8d",
     marginTop: "0",
@@ -114,7 +121,7 @@ function AppBar(props) {
               <SearchIcon type="submit" />
             </IconButton>
           </SearchIconWrapper>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={() => handleSubmit}>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
