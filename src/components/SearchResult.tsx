@@ -3,7 +3,13 @@ import Dialog from "@mui/material/Dialog";
 import { Box, Typography } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
-function SearchResult(props) {
+type Props = {
+  searchResults: Food
+  ifSearched: boolean
+  closeModal: () => void
+}
+
+function SearchResult(props: Props) {
   const { searchResults, ifSearched, closeModal } = props;
 
   const location = useLocation();

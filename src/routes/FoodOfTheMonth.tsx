@@ -1,12 +1,8 @@
 import RenderFoods from "../components/RenderFoods";
 import { ChangeEvent, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import { Box } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
-import ArrowLeftIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
-import ArrowRightIcon from "@mui/icons-material/ArrowCircleRightOutlined";
+import { Box, Tab, Tabs, styled, alpha } from "@mui/material";
+import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 
 type FoodType = "Fruits" | "Veggies"
 
@@ -92,13 +88,13 @@ function FoodOfTheMonth({food} : {food: Food}) {
       <div className="month-container">
         <div className="selected-month">
           <ArrowButton to={`/month/${prevMonth}`}>
-            <ArrowLeftIcon />
+            <ArrowLeft />
           </ArrowButton>
           <div className="month-title">
             <h4>{monthEng[monthNum]}</h4>
           </div>
           <ArrowButton to={`/month/${nextMonth}`}>
-            <ArrowRightIcon />
+            <ArrowRight />
           </ArrowButton>
         </div>
         <p className="food-counter-text">

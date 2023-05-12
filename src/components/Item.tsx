@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
+import { Box, Typography, styled } from "@mui/material";
 
 const ImgBox = styled(Box)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -13,7 +11,7 @@ const ImgBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-function Item(props) {
+function Item(props: FoodObject) {
   const image = props.image.toLowerCase();
   return (
     <Link to={`/foodpage/${props.id}`}>

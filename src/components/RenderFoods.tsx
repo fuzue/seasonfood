@@ -1,9 +1,7 @@
 import Item from "./Item";
-import Grid from "@mui/material/Grid";
-import { Box } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Grid, styled } from "@mui/material";
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid)(() => ({
   display: "flex",
   justifyContent: "space-around",
   alignItems: "center",
@@ -11,7 +9,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 }));
 
 //render the grid of foods
-function RenderFoods(foodList) {
+function RenderFoods(foodList: Food) {
   const foodItems = foodList.map((item) => {
     return (
       <Grid item xs={4} key={item.id}>

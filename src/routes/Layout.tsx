@@ -1,27 +1,31 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
-import AppBar from "../components/AppBar";
+import HeaderBar from "../components/HeaderBar";
 import SearchResult from "../components/SearchResult";
 
 /* MUI IMPORTS */
-import ListItem from "@mui/material/ListItem";
-import Drawer from "@mui/material/Drawer";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import { Typography } from "@mui/material";
-import { Box } from "@mui/material";
+import {
+  createTheme,
+  styled,
+  Box,
+  Drawer,
+  ListItemButton,
+  ListItemText,
+  ListItem,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: "#13bf8d",
       light: "#f4fbeb",
-      dark: "#555766"
+      dark: "#555766",
     },
     secondary: {
       main: "#ff7664", //red
-      dark: "#4071d8" //blue
+      dark: "#4071d8", //blue
     },
   },
   breakpoints: {
@@ -35,7 +39,7 @@ const theme = createTheme({
   },
 });
 
-function Layout({food} : {food: Food}) {
+function Layout({ food }: { food: Food }) {
   const [ifSearched, setIfSearched] = useState(false);
   const [searchResults, setSearchResults] = useState([] as Food);
 
@@ -108,7 +112,7 @@ function Layout({food} : {food: Food}) {
           {list}
         </Drawer>
         <div className="main-layout">
-          <AppBar
+          <HeaderBar
             onSearch={onSearch}
             toggleDrawer={toggleDrawer}
             food={food}
