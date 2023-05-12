@@ -26,7 +26,7 @@ function FoodPage({food}: {food: Food}) {
   const backBtn = useNavigate();
   const image = selectedFood.image.toLowerCase();
 
-  const monthColor = (month) => {
+  const monthColor = (month: string) => {
     if (seasonMonths.includes(month)) {
       return {
         backgroundColor: "primary.main",
@@ -37,7 +37,7 @@ function FoodPage({food}: {food: Food}) {
       return { color: "gray" };
     }
   };
-  const BackButton = styled(Button)(({ theme }) => ({
+  const BackButton = styled(Button)(() => ({
     width: "5em",
     margin: "0",
     position: "absolute",
@@ -45,7 +45,7 @@ function FoodPage({food}: {food: Food}) {
     top: "14%",
   }));
 
-  const StyledButton = styled(Button)(({ theme }) => ({
+  const StyledButton = styled(Button)(() => ({
     width: "7.1em",
     borderRadius: "6px",
     margin: " 0.5em 0.25em",
@@ -55,7 +55,7 @@ function FoodPage({food}: {food: Food}) {
     },
   }));
 
-  const ImgBox = styled(Box)(({ theme }) => ({
+  const ImgBox = styled(Box)(() => ({
     objectFit: "cover",
     margin: "1em",
     width: "40%",
@@ -77,7 +77,7 @@ function FoodPage({food}: {food: Food}) {
   }
 
   return (
-    <Box marginX={1} flex justifyContent="space-between" alignItems="center">
+    <Box marginX={1} justifyContent="space-between" alignItems="center">
       <div>
         <BackButton variant="outlined" onClick={() => backBtn(-1)}>
           back
@@ -107,7 +107,7 @@ function FoodPage({food}: {food: Food}) {
         </Box>
         <Box>
           <h4 className="months-in-season-title"> Months in season </h4>
-          <Box flex justifyContent="space-between" alignItems="center">
+          <Box justifyContent="space-between" alignItems="center">
             <Grid
               className="grid-container"
               container
