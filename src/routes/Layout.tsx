@@ -44,7 +44,6 @@ function Layout({ food }: { food: Food }) {
   const [searchResults, setSearchResults] = useState([] as Food);
 
   const closeModal = () => setIfSearched(false);
-  const openModal = () => setIfSearched(true);
 
   const onSearch = (query: string, food: Food) => {
     if (query != "") {
@@ -123,7 +122,6 @@ function Layout({ food }: { food: Food }) {
               searchResults={searchResults}
               ifSearched={ifSearched}
               closeModal={closeModal}
-              openModal={openModal}
             />
           ) : null}
           <Outlet />

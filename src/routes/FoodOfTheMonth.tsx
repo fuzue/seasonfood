@@ -1,30 +1,13 @@
-import RenderFoods from "../components/RenderFoods";
 import { ChangeEvent, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Box, Tab, Tabs, styled, alpha } from "@mui/material";
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
+import RenderFoods from "../components/RenderFoods";
+import { monthEng } from "../utils/utils";
 
 type FoodType = "Fruits" | "Veggies"
 
-const monthEng = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const date = new Date();
-const currentMonth = date.getMonth();
-
-function FoodOfTheMonth({food} : {food: Food}) {
+export default function FoodOfTheMonth({food} : {food: Food}) {
   const { selectedMonthName } = useParams();
   const monthNum = monthEng.findIndex((month) => month === selectedMonthName);
 
@@ -117,5 +100,3 @@ function FoodOfTheMonth({food} : {food: Food}) {
     </Box>
   );
 }
-
-export { FoodOfTheMonth, monthEng, currentMonth };

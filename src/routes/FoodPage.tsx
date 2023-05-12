@@ -1,4 +1,4 @@
-import { monthEng, currentMonth } from "./FoodOfTheMonth";
+import { monthEng, currentMonth } from "../utils/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -33,7 +33,7 @@ function FoodPage({food}: {food: Food}) {
       }
     }
     else {
-      return { 
+      return {
         color: 'gray',
         backgroundColor: 'primary.light'
       }
@@ -53,7 +53,7 @@ function FoodPage({food}: {food: Food}) {
     height: '2.5em',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',  
+    alignItems: 'center',
   }));
 
   const ImgBox = styled(Box)(() => ({
