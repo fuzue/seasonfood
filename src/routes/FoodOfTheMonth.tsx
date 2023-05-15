@@ -1,4 +1,4 @@
-import type { FoodList, FoodCategory } from "../types/food";
+import type { FoodList, FoodCategory, FoodObject } from "../types/food";
 
 import { ChangeEvent, useState } from "react";
 import { useParams, Link } from "react-router-dom";
@@ -11,12 +11,11 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
   const { selectedMonthName } = useParams();
   const monthNum = monthEng.findIndex((month) => month === selectedMonthName);
 
-  const monthFood = [];
-  for (let i = 0; i < food.length; i++) {
-    if (food[i][`month_${monthNum}`] === "x") {
-      monthFood.push(food[i]);
-    }
-  }
+  const monthFood = [] as FoodObject[];
+  food.forEach(item => {
+    if(item.season[monthNum] === true) monthFood.push(item);
+  })
+
   //filters the fruits and vegetables
   const filterFoodType = (monthFood: FoodList, foodCategory: FoodCategory) =>
     monthFood.filter((item) => item.category === foodCategory);
@@ -34,7 +33,7 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
   };
 
   //function to render the different types according to the tab
-  const changeTab = (foodType: FoodType) => {
+  const changeTab = (foodType: FoodCategory) => {
     switch (foodType) {
       case "Fruits":
         return <RenderFruits />;

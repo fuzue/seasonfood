@@ -40,7 +40,7 @@ export default function HeaderBar(props: Props) {
       return food;
     }
     return food.filter((item) => {
-      return item.nameEng
+      return item.description[0].name
         .toLowerCase()
         .includes(query.current.value.trim().toLowerCase());
     });
