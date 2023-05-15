@@ -1,4 +1,4 @@
-import type { Food } from "../types/food";
+import type { FoodList } from "../types/food";
 
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
@@ -41,13 +41,13 @@ const theme = createTheme({
   },
 });
 
-function Layout({ food }: { food: Food }) {
+function Layout({ food }: { food: FoodList }) {
   const [ifSearched, setIfSearched] = useState(false);
-  const [searchResults, setSearchResults] = useState([] as Food);
+  const [searchResults, setSearchResults] = useState([] as FoodList);
 
   const closeModal = () => setIfSearched(false);
 
-  const onSearch = (query: string, food: Food) => {
+  const onSearch = (query: string, food: FoodList) => {
     if (query != "") {
       setIfSearched(true);
       setSearchResults(food);

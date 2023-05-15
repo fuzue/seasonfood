@@ -67,7 +67,6 @@ export default function App() {
     });
 
     if(food.length === 0) setFood(foodArray)
-    console.log(foodArray)
   };
 
   return (

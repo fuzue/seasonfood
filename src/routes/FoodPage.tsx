@@ -1,4 +1,4 @@
-import type { Food } from "../types/food";
+import type { FoodList } from "../types/food";
 
 import { monthEng, currentMonth } from "../utils/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 
-function FoodPage({food}: {food: Food}) {
+function FoodPage({food}: {food: FoodList}) {
   const { id } = useParams();
   const selectedFood = food.find((f) => f.id === id);
   const seasonMonths = [] as string[]; //  months array to update the list of months in season

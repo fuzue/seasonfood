@@ -1,4 +1,6 @@
-export type Food = FoodObject[]
+export type FoodList = FoodObject[]
+
+export type FoodCategory = "Fruits" | "Veggies"
 
 export type FoodObject = {
   category: string
