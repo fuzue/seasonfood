@@ -7,7 +7,7 @@ import { currentMonth, monthEng } from "./utils/utils";
 import FoodPage from "./routes/FoodPage";
 import FoodOfTheMonth from "./routes/FoodOfTheMonth";
 import Layout from "./routes/Layout";
-import NotFound from "./routes/NotFound";
+import { NotFound } from "./routes/NotFound";
 
 export default function App() {
   const [food, setFood] = useState([] as Food)
@@ -27,18 +27,40 @@ export default function App() {
   return (
     <BrowserRouter basename={"/seasonfood"}>
       <div className="App">
-        {/* {food.length > 0 ? */}
+        {food.length > 0 ?
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/" element={<Layout food={food} />}>
             <Route index element={<Navigate to={`/month/${monthEng[currentMonth]}`} replace />} />
-            <Route path="/foodpage/:id" element={<FoodPage food={food} />} />
-            <Route path="/foodpage/*" element={<NotFound />} />
+            <Route path="/foodpage/:id" element={<FoodPage key="foodpage"  food={food} />} />
             <Route path="/month/:selectedMonthName" element={<FoodOfTheMonth food={food} />} />
           </Route>
         </Routes>
-        {/*  : 'not loaded'} */}
+         : 'not loaded'}
       </div>
     </BrowserRouter>
   );
 }
+
+/* 
+let router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Outlet />,
+        errorElement: <RootErrorBoundary />,
+        children: [
+          {
+            path: "projects/:projectId",
+            element: <Project />,
+            errorElement: <ProjectErrorBoundary />,
+            loader: projectLoader,
+          },
+        ],
+      },
+    ],
+  },
+]); */

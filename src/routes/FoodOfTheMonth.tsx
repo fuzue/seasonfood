@@ -1,7 +1,7 @@
 import type { Food } from "../types/food";
 
-import { ChangeEvent, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { ChangeEvent, useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Box, Tab, Tabs, styled, alpha } from "@mui/material";
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import RenderFoods from "../components/RenderFoods";
@@ -11,7 +11,16 @@ type FoodType = "Fruits" | "Veggies"
 
 export default function FoodOfTheMonth({food} : {food: Food}) {
   const { selectedMonthName } = useParams();
+ 
   const monthNum = monthEng.findIndex((month) => month === selectedMonthName);
+  
+  let navigate = useNavigate();
+  useEffect(() => {
+    if(monthNum < 0) {
+      console.log('not found worked', monthNum)
+      return navigate("/NotFound");
+    }
+  })
 
   const monthFood = [];
   for (let i = 0; i < food.length; i++) {
@@ -67,7 +76,6 @@ export default function FoodOfTheMonth({food} : {food: Food}) {
     margin: "0",
     display: "flex",
   }));
-
   return (
     <Box>
       <div className="month-container">

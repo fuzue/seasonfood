@@ -2,13 +2,26 @@ import type { Food } from "../types/food";
 
 import { monthEng, currentMonth } from "../utils/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
-
 
 function FoodPage({food}: {food: Food}) {
   const { id } = useParams();
   const selectedFood = food.find((f) => f.id === id);
+ 
+  let navigate = useNavigate();
+  console.log(selectedFood)
+  useEffect(() => {
+    console.log(selectedFood)
+    if (selectedFood === undefined) {
+      //console.log('not found worked')
+      return navigate("/NotFound");
+    } else {
+      console.log( selectedFood)
+    }
+  }, [selectedFood])
+
   const seasonMonths = [] as string[]; //  months array to update the list of months in season
   let seasonStatus = ""; // status of the specific fruit or vegetable
 
