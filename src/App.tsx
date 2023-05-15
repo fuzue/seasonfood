@@ -1,4 +1,4 @@
-import type { Food, FoodDescription, FoodObject } from "./types/food";
+import type { FoodList, FoodDescription, FoodObject } from "./types/food";
 
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import FoodOfTheMonth from "./routes/FoodOfTheMonth";
 import Layout from "./routes/Layout";
 
 export default function App() {
-  const [food, setFood] = useState([] as Food);
+  const [food, setFood] = useState([] as FoodList);
 
   const { readRemoteFile } = usePapaParse();
 
@@ -29,7 +29,7 @@ export default function App() {
   }
 
   const normalizeData = (data: { [key: string]: string }[]) => {
-    const foodArray = [] as Food;
+    const foodArray = [] as FoodList;
     const months = Object.keys(data[0]).filter(key => key.includes('month_'))
     const langs = Object.keys(data[0]).filter(key => key.includes('name'))
 
