@@ -1,3 +1,5 @@
+import type { Food } from "../types/food";
+
 import { useRef, useEffect } from "react";
 import {
   AppBar,

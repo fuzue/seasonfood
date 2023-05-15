@@ -1,3 +1,5 @@
+import type { Food } from "../types/food";
+
 import RenderFoods from "./RenderFoods";
 import Dialog from "@mui/material/Dialog";
 import { Box, Typography } from "@mui/material";

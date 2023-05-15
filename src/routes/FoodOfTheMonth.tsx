@@ -1,3 +1,5 @@
+import type { Food } from "../types/food";
+
 import { ChangeEvent, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Box, Tab, Tabs, styled, alpha } from "@mui/material";

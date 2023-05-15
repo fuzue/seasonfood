@@ -1,3 +1,5 @@
+import type { Food } from "./types/food";
+
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { usePapaParse } from 'react-papaparse';

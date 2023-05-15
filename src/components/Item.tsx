@@ -1,3 +1,5 @@
+import type { FoodObject } from "../types/food"
+
 import { Link } from "react-router-dom";
 import { Box, Typography, styled } from "@mui/material";
 

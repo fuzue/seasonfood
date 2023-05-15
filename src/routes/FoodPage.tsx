@@ -1,3 +1,5 @@
+import type { Food } from "../types/food";
+
 import { monthEng, currentMonth } from "../utils/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Box, Typography, Button, Grid } from "@mui/material";

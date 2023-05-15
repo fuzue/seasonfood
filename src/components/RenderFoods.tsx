@@ -1,3 +1,5 @@
+import type { Food } from "../types/food";
+
 import Item from "./Item";
 import { Grid, styled } from "@mui/material";
 
