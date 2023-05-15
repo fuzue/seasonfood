@@ -114,7 +114,7 @@ function FoodPage({food}: {food: Food}) {
           <Typography variant="h6">
             {selectedFood.nameEng}:
           </Typography>
-          <Typography variant="p">{seasonStatus}</Typography>
+          <Typography>{seasonStatus}</Typography>
         </Box>
       </Box>
       
