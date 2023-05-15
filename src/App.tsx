@@ -14,7 +14,8 @@ export default function App() {
   const { readRemoteFile } = usePapaParse();
 
   if(food.length === 0) {
-    readRemoteFile("http://localhost:5173/ITALIA-fruits-and-veggies.csv", {
+    console.log(`${location.origin}${import.meta.env.BASE_URL}`)
+    readRemoteFile(`${location.origin}${import.meta.env.BASE_URL}/ITALIA-fruits-and-veggies.csv`, {
       download: true,
       header: true,
       complete: (result: any) => {
