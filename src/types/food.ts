@@ -1,15 +1,14 @@
 export type Food = FoodObject[]
 
 export type FoodObject = {
-  id: string
   category: string
   description: FoodDescription[]
   image: string
-  months: boolean[]
+  season: boolean[]
 }
 
 export type FoodDescription = {
+  lang: string
   name: string
   slug: string
-  lang: string
 }
