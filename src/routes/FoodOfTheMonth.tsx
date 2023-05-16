@@ -11,13 +11,12 @@ type FoodType = "Fruits" | "Veggies"
 
 export default function FoodOfTheMonth({food} : {food: Food}) {
   const { selectedMonthName } = useParams();
- 
+
   const monthNum = monthEng.findIndex((month) => month === selectedMonthName);
-  
-  let navigate = useNavigate();
+
+  const navigate = useNavigate();
   useEffect(() => {
-    if(monthNum < 0) {
-      console.log('not found worked', monthNum)
+    if(monthNum < 0 || monthNum > 11) {
       return navigate("/NotFound");
     }
   })

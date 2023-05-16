@@ -6,37 +6,32 @@ import { useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-function FoodPage({food}: {food: Food}) {
+export default function FoodPage({food}: {food: Food}) {
   const { id } = useParams();
   const selectedFood = food.find((f) => f.id === id);
- 
-  let navigate = useNavigate();
-  
+
+  const navigate = useNavigate();
   useEffect(() => {
-    if (selectedFood === undefined) {
-      //console.log('not found worked')
+    if (!selectedFood) {
       return navigate("/NotFound");
-    } else {
-     
     }
-  }, [selectedFood])
+  })
 
   const seasonMonths = [] as string[]; //  months array to update the list of months in season
   let seasonStatus = ""; // status of the specific fruit or vegetable
 
   for (let i = 0; i < 12; i++) {
-    if (selectedFood[`month_${i}`] === "x") {
+    if (selectedFood && selectedFood[`month_${i}`] === "x") {
       seasonMonths.push(monthEng[i]);
+      seasonStatus = "Not in season, check below when it's best to buy it.";
       if (seasonMonths.includes(monthEng[currentMonth])) {
         seasonStatus = "Currently in season";
-      } else {
-        seasonStatus = "Not in season, check below when it's best to buy it.";
       }
     }
   }
 
   const backBtn = useNavigate();
-  const image = selectedFood.image.toLowerCase();
+  const image = selectedFood ? selectedFood.image.toLowerCase() : '';
 
   const monthColor = (month: string) => {
     if (seasonMonths.includes(month)) {
@@ -115,8 +110,8 @@ function FoodPage({food}: {food: Food}) {
         <ImgBox>
           <img className='foodPage-image' src={`../images/${image}.png`} alt={`photo of ${image}`} />
         </ImgBox>
-        <Box  
-        marginLeft= '1em'  
+        <Box
+        marginLeft= '1em'
         marginTop= '0'
         display= "flex"
         flexDirection="column"
@@ -124,12 +119,12 @@ function FoodPage({food}: {food: Food}) {
         justifyContent= "center"
         width="50%">
           <Typography variant="h6">
-            {selectedFood.nameEng}:
+            {selectedFood ? selectedFood.nameEng : ''}:
           </Typography>
           <Typography>{seasonStatus}</Typography>
         </Box>
       </Box>
-      
+
       {/* BOTTOM GRID WITH MONTHS */}
       <Box
           sx={{
@@ -146,5 +141,3 @@ function FoodPage({food}: {food: Food}) {
     </Box>
   );
 }
-
-export default FoodPage;
