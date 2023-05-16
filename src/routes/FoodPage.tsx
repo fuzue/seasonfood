@@ -11,14 +11,13 @@ function FoodPage({food}: {food: Food}) {
   const selectedFood = food.find((f) => f.id === id);
  
   let navigate = useNavigate();
-  console.log(selectedFood)
+  
   useEffect(() => {
-    console.log(selectedFood)
     if (selectedFood === undefined) {
       //console.log('not found worked')
       return navigate("/NotFound");
     } else {
-      console.log( selectedFood)
+     
     }
   }, [selectedFood])
 
