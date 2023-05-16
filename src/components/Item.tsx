@@ -16,7 +16,7 @@ const ImgBox = styled(Box)(({ theme }) => ({
 function Item(props: FoodObject) {
   const image = props.image.toLowerCase();
   return (
-    <Link to={`/foodpage/${props.id}`}>
+    <Link to={`/foodpage/${props.description[0].slug}`}>
       <ImgBox>
         <img
           className="food-image"
@@ -24,7 +24,7 @@ function Item(props: FoodObject) {
           alt={`image of ${image}`}
         />
         <Typography sx={{ paddingBottom: "0.25em" }}>
-          {props.nameEng}
+          {props.description[0].name}
         </Typography>
       </ImgBox>
     </Link>

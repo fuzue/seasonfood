@@ -1,4 +1,4 @@
-import type { Food } from "../types/food";
+import type { FoodList } from "../types/food";
 
 import { useRef, useEffect } from "react";
 import {
@@ -15,8 +15,8 @@ import SearchIcon from '@mui/icons-material/Search';
 
 type Props = {
   ifSearched: boolean
-  food: Food
-  onSearch: (query: string, food: Food) => void
+  food: FoodList
+  onSearch: (query: string, food: FoodList) => void
   toggleDrawer: () => void
 }
 
@@ -35,12 +35,12 @@ export default function HeaderBar(props: Props) {
     event.preventDefault();
   };
 
-  const searchFilterFood = (food: Food) => {
+  const searchFilterFood = (food: FoodList) => {
     if (query.current.value === "") {
       return food;
     }
     return food.filter((item) => {
-      return item.nameEng
+      return item.description[0].name
         .toLowerCase()
         .includes(query.current.value.trim().toLowerCase());
     });

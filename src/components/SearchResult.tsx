@@ -1,20 +1,17 @@
-import type { Food } from "../types/food";
+import type { FoodList } from "../types/food";
 
 import RenderFoods from "./RenderFoods";
 import Dialog from "@mui/material/Dialog";
 import { Box, Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
 
 type Props = {
-  searchResults: Food
+  searchResults: FoodList
   ifSearched: boolean
   closeModal: () => void
 }
 
 function SearchResult(props: Props) {
   const { searchResults, ifSearched, closeModal } = props;
-
-  const location = useLocation();
 
   return (
     <Dialog

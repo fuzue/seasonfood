@@ -1,4 +1,4 @@
-import type { Food } from "../types/food";
+import type { FoodList } from "../types/food";
 
 import { monthEng, currentMonth } from "../utils/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -6,14 +6,14 @@ import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 
-function FoodPage({food}: {food: Food}) {
+function FoodPage({food}: {food: FoodList}) {
   const { id } = useParams();
-  const selectedFood = food.find((f) => f.id === id);
+  const selectedFood = food.find(item => item.description[0].slug === id);
   const seasonMonths = [] as string[]; //  months array to update the list of months in season
   let seasonStatus = ""; // status of the specific fruit or vegetable
 
   for (let i = 0; i < 12; i++) {
-    if (selectedFood[`month_${i}`] === "x") {
+    if (selectedFood.season[i] === true) {
       seasonMonths.push(monthEng[i]);
       if (seasonMonths.includes(monthEng[currentMonth])) {
         seasonStatus = "Currently in season";
@@ -103,8 +103,8 @@ function FoodPage({food}: {food: Food}) {
         <ImgBox>
           <img className='foodPage-image' src={`../images/${image}.png`} alt={`photo of ${image}`} />
         </ImgBox>
-        <Box  
-        marginLeft= '1em'  
+        <Box
+        marginLeft= '1em'
         marginTop= '0'
         display= "flex"
         flexDirection="column"
@@ -112,12 +112,12 @@ function FoodPage({food}: {food: Food}) {
         justifyContent= "center"
         width="50%">
           <Typography variant="h6">
-            {selectedFood.nameEng}:
+            {selectedFood?.description[0].name}:
           </Typography>
           <Typography variant="p">{seasonStatus}</Typography>
         </Box>
       </Box>
-      
+
       {/* BOTTOM GRID WITH MONTHS */}
       <Box
           sx={{

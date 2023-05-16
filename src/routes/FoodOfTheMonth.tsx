@@ -1,4 +1,4 @@
-import type { Food } from "../types/food";
+import type { FoodList, FoodCategory, FoodObject } from "../types/food";
 
 import { ChangeEvent, useState } from "react";
 import { useParams, Link } from "react-router-dom";
@@ -7,21 +7,18 @@ import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import RenderFoods from "../components/RenderFoods";
 import { monthEng } from "../utils/utils";
 
-type FoodType = "Fruits" | "Veggies"
-
-export default function FoodOfTheMonth({food} : {food: Food}) {
+export default function FoodOfTheMonth({food} : {food: FoodList}) {
   const { selectedMonthName } = useParams();
   const monthNum = monthEng.findIndex((month) => month === selectedMonthName);
 
-  const monthFood = [];
-  for (let i = 0; i < food.length; i++) {
-    if (food[i][`month_${monthNum}`] === "x") {
-      monthFood.push(food[i]);
-    }
-  }
+  const monthFood = [] as FoodObject[];
+  food.forEach(item => {
+    if(item.season[monthNum] === true) monthFood.push(item);
+  })
+
   //filters the fruits and vegetables
-  const filterFoodType = (monthFood: Food, foodType: FoodType) =>
-    monthFood.filter((item) => item.type === foodType);
+  const filterFoodType = (monthFood: FoodList, foodCategory: FoodCategory) =>
+    monthFood.filter((item) => item.category === foodCategory);
   const fruitsList = filterFoodType(monthFood, "Fruits");
   const veggiesList = filterFoodType(monthFood, "Veggies");
 
@@ -30,13 +27,13 @@ export default function FoodOfTheMonth({food} : {food: Food}) {
   const RenderVeggies = () => RenderFoods(veggiesList);
 
   //variables to handle the changing tabs
-  const [foodType, setFoodType] = useState("Fruits" as FoodType);
-  const handleChange = (event: ChangeEvent<EventTarget>, newFoodType: FoodType) => {
-    setFoodType(newFoodType);
+  const [foodType, setFoodType] = useState("Fruits" as FoodCategory);
+  const handleChange = (event: ChangeEvent<EventTarget>, newFoodCategory: FoodCategory) => {
+    setFoodType(newFoodCategory);
   };
 
   //function to render the different types according to the tab
-  const changeTab = (foodType: FoodType) => {
+  const changeTab = (foodType: FoodCategory) => {
     switch (foodType) {
       case "Fruits":
         return <RenderFruits />;
