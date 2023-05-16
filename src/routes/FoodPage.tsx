@@ -112,7 +112,7 @@ function FoodPage({food}: {food: FoodList}) {
         justifyContent= "center"
         width="50%">
           <Typography variant="h6">
-            {selectedFood.nameEng}:
+            {selectedFood?.description[0].name}:
           </Typography>
           <Typography variant="p">{seasonStatus}</Typography>
         </Box>
