@@ -1,8 +1,7 @@
-import type { FoodList } from "../types/food";
-
-import RenderFoods from "./RenderFoods";
-import Dialog from "@mui/material/Dialog";
-import { Box, Typography } from "@mui/material";
+import type { FoodList, FoodObject } from "../types/food";
+//import RenderFoods from "./RenderFoods";
+import Item from "./Item"
+import { Box, Typography, Dialog, Grid } from "@mui/material";
 
 type Props = {
   searchResults: FoodList
@@ -13,6 +12,27 @@ type Props = {
 function SearchResult(props: Props) {
   const { searchResults, ifSearched, closeModal } = props;
 
+
+  const foodItems = searchResults.map((item, key) => {
+    return ( <Item key={key} {...item} />);
+  })
+
+  const renderResults = (foodItems: JSX.Element[]) => {
+    return (
+      <Box
+        sx={{
+          display: 'inline-flex',
+          flexWrap: 'wrap',
+          maxWidth: 450,
+          gap:2,
+          m:2,
+          justifyContent:'space-around',
+        }}>
+          {foodItems}
+        </Box>
+    )
+  }
+
   return (
     <Dialog
       open={ifSearched}
@@ -22,15 +42,13 @@ function SearchResult(props: Props) {
       onClick={closeModal}
     >
       {searchResults.length === 0 ? (
-        <Box
-          sx={{
-            padding: "2em",
-          }}
-        >
+        <Box sx={{ p:2 }}>
           <Typography variant="h6">ITEM NOT FOUND</Typography>
         </Box>
       ) : (
-        RenderFoods(searchResults)
+        <Grid>
+          {renderResults(foodItems)}
+        </Grid>
       )}
     </Dialog>
   );
