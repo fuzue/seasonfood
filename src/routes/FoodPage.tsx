@@ -2,29 +2,36 @@ import type { FoodList } from "../types/food";
 
 import { monthEng, currentMonth } from "../utils/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 
-function FoodPage({food}: {food: FoodList}) {
+export default function FoodPage({food}: {food: FoodList}) {
   const { id } = useParams();
   const selectedFood = food.find(item => item.description[0].slug === id);
   const seasonMonths = [] as string[]; //  months array to update the list of months in season
   let seasonStatus = ""; // status of the specific fruit or vegetable
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!selectedFood) {
+      return navigate("/NotFound");
+    }
+  })
+
   for (let i = 0; i < 12; i++) {
-    if (selectedFood.season[i] === true) {
+    if (selectedFood && selectedFood.season[i] === true) {
       seasonMonths.push(monthEng[i]);
+      seasonStatus = "Not in season, check below when it's best to buy it.";
       if (seasonMonths.includes(monthEng[currentMonth])) {
         seasonStatus = "Currently in season";
-      } else {
-        seasonStatus = "Not in season, check below when it's best to buy it.";
       }
     }
   }
 
   const backBtn = useNavigate();
-  const image = selectedFood.image.toLowerCase();
+  const image = selectedFood ? selectedFood.image.toLowerCase() : '';
 
   const monthColor = (month: string) => {
     if (seasonMonths.includes(month)) {
@@ -114,7 +121,7 @@ function FoodPage({food}: {food: FoodList}) {
           <Typography variant="h6">
             {selectedFood?.description[0].name}:
           </Typography>
-          <Typography variant="p">{seasonStatus}</Typography>
+          <Typography>{seasonStatus}</Typography>
         </Box>
       </Box>
 
@@ -134,5 +141,3 @@ function FoodPage({food}: {food: FoodList}) {
     </Box>
   );
 }
-
-export default FoodPage;

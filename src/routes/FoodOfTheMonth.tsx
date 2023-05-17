@@ -1,7 +1,7 @@
 import type { FoodList, FoodCategory, FoodObject } from "../types/food";
 
-import { ChangeEvent, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { ChangeEvent, useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Box, Tab, Tabs, styled, alpha } from "@mui/material";
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import RenderFoods from "../components/RenderFoods";
@@ -9,7 +9,15 @@ import { monthEng } from "../utils/utils";
 
 export default function FoodOfTheMonth({food} : {food: FoodList}) {
   const { selectedMonthName } = useParams();
+
   const monthNum = monthEng.findIndex((month) => month === selectedMonthName);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if(monthNum < 0 || monthNum > 11) {
+      return navigate("/NotFound");
+    }
+  })
 
   const monthFood = [] as FoodObject[];
   food.forEach(item => {
@@ -64,7 +72,6 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
     margin: "0",
     display: "flex",
   }));
-
   return (
     <Box>
       <div className="month-container">
