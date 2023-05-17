@@ -31,10 +31,9 @@ function normalizeData(data: { [key: string]: string }[]) {
 }
 
 function getDescription(line: { [key: string]: string }) {
-  const langs = Object.keys(line).filter((key) => key.includes("name"));
   const langsInfo = [] as FoodDescription[];
   Object.keys(line).forEach((key) => {
-    if (langs.includes(key))
+    if (key.includes("name"))
       langsInfo.push({
         lang: key.replace("name", ""),
         name: line[key],
@@ -49,10 +48,9 @@ function getDescription(line: { [key: string]: string }) {
 };
 
 function getMonths (line: { [key: string]: string }) {
-  const months = Object.keys(line).filter((key) => key.includes("month_"));
   const monthsInfo = [] as boolean[];
   Object.keys(line).forEach((key) => {
-    if (months.includes(key)) monthsInfo.push(line[key] === "x");
+    if (key.includes("month_")) monthsInfo.push(line[key] === "x");
   });
   return monthsInfo;
 };
