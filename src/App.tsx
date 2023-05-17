@@ -9,11 +9,10 @@ import FoodPage from "./routes/FoodPage";
 import Layout from "./routes/Layout";
 import { NotFound } from "./routes/NotFound";
 
-export default async function App() {
+export default function App() {
   const [food, setFood] = useState([] as FoodList);
 
-  await fetchData(`${location.origin}${import.meta.env.BASE_URL}/ITALIA-fruits-and-veggies.csv`)
-    .then(result => console.log(result))
+  if(food.length === 0) fetchData(setFood, `ITALIA-fruits-and-veggies.csv`)
 
   return (
     food.length > 0 ?

@@ -1,15 +1,15 @@
 import { usePapaParse } from "react-papaparse";
 import { FoodDescription, FoodList, FoodObject } from "./types/food";
 
-export default async function fetchData(url: string) {
+export default async function fetchData(setFunction: React.Dispatch<React.SetStateAction<FoodList>>, url: string) {
   const { readRemoteFile } = usePapaParse();
 
   return readRemoteFile(
-    url ,{
+    `${location.origin}${import.meta.env.BASE_URL}/${url}` ,{
       download: true,
       header: true,
       complete: (result: any) => {
-        return normalizeData(result.data);
+        setFunction(normalizeData(result.data));
       },
     }
   );
