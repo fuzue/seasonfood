@@ -1,8 +1,7 @@
-import type { FoodList } from "../types/food";
-
-import RenderFoods from "./RenderFoods";
-import Dialog from "@mui/material/Dialog";
-import { Box, Typography } from "@mui/material";
+import type { FoodList, FoodObject } from "../types/food";
+//import RenderFoods from "./RenderFoods";
+import Item from "./Item"
+import { Box, Typography, Dialog, Grid } from "@mui/material";
 
 type Props = {
   searchResults: FoodList
@@ -12,6 +11,23 @@ type Props = {
 
 function SearchResult(props: Props) {
   const { searchResults, ifSearched, closeModal } = props;
+ 
+    const foodItems = searchResults.map((item, key) => {
+      return (
+        <Grid item  key={key}>
+          <Item key={key} {...item} />
+        </Grid>
+      );
+    })
+    const renderResults = (foodItems: JSX.Element[]) => {
+      return(
+        <Grid 
+        spacing={3}
+        padding={2}>
+          {foodItems}
+        </Grid>
+      )
+    }
 
   return (
     <Dialog
@@ -25,12 +41,15 @@ function SearchResult(props: Props) {
         <Box
           sx={{
             padding: "2em",
+            bgColor: 'red',
           }}
         >
           <Typography variant="h6">ITEM NOT FOUND</Typography>
         </Box>
       ) : (
-        RenderFoods(searchResults)
+        <Grid>
+          {renderResults(foodItems)}
+        </Grid>
       )}
     </Dialog>
   );
