@@ -27,6 +27,8 @@ export default function App() {
   }
 
   const normalizeData = (data: { [key: string]: string }[]) => {
+    if (food.length > 0) return
+
     const foodArray = [] as FoodList;
     const months = Object.keys(data[0]).filter(key => key.includes('month_'))
     const langs = Object.keys(data[0]).filter(key => key.includes('name'))
@@ -64,7 +66,7 @@ export default function App() {
       foodArray.push(parsedFood)
     });
 
-    if(food.length === 0) setFood(foodArray)
+    setFood(foodArray)
   };
 
   return (
