@@ -11,23 +11,27 @@ type Props = {
 
 function SearchResult(props: Props) {
   const { searchResults, ifSearched, closeModal } = props;
- 
-    const foodItems = searchResults.map((item, key) => {
-      return (
-        <Grid item  key={key}>
-          <Item key={key} {...item} />
-        </Grid>
-      );
-    })
-    const renderResults = (foodItems: JSX.Element[]) => {
-      return(
-        <Grid 
-        spacing={3}
-        padding={2}>
+
+
+  const foodItems = searchResults.map((item, key) => {
+    return ( <Item key={key} {...item} />);
+  })
+
+  const renderResults = (foodItems: JSX.Element[]) => {
+    return (
+      <Box
+        sx={{
+          display: 'inline-flex',
+          flexWrap: 'wrap',
+          maxWidth: 450,
+          gap:2,
+          m:2,
+          justifyContent:'space-around',
+        }}>
           {foodItems}
-        </Grid>
-      )
-    }
+        </Box>
+    )
+  }
 
   return (
     <Dialog
@@ -38,12 +42,7 @@ function SearchResult(props: Props) {
       onClick={closeModal}
     >
       {searchResults.length === 0 ? (
-        <Box
-          sx={{
-            padding: "2em",
-            bgColor: 'red',
-          }}
-        >
+        <Box sx={{ p:2 }}>
           <Typography variant="h6">ITEM NOT FOUND</Typography>
         </Box>
       ) : (
