@@ -1,5 +1,4 @@
 import type { FoodList } from "../types/food";
-
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import HeaderBar from "../components/HeaderBar";
@@ -7,15 +6,9 @@ import SearchResult from "../components/SearchResult";
 
 /* MUI IMPORTS */
 import {
-  createTheme,
-  styled,
-  Box,
-  Drawer,
-  ListItemButton,
-  ListItemText,
-  ListItem,
-  ThemeProvider,
-  Typography,
+  createTheme, styled, Box, Drawer, ListItemButton,
+  ListItem, ThemeProvider, Typography, Button,
+  Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText,
 } from "@mui/material";
 
 const theme = createTheme({
@@ -40,6 +33,9 @@ const theme = createTheme({
     },
   },
 });
+
+
+
 
 function Layout({ food }: { food: FoodList }) {
   const [ifSearched, setIfSearched] = useState(false);
@@ -66,13 +62,44 @@ function Layout({ food }: { food: FoodList }) {
     boxShadow: "3px 4px 8px #888888",
   }));
 
-  //side drawer code
+  // open side drawer code
   const [state, setState] = useState(false);
-
   const toggleDrawer = () => {
     setState(!state);
   };
-
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+    console.log('click works')
+  };
+  const handleClose = () => {
+    setOpen(false)
+  };
+  //dialog box that opens with each element clicked
+  function SimpleDialog() {   
+    return (
+      <Dialog open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"About"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Let Google help apps determine location. This means sending anonymous
+            location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="outlined" onClick={handleClose} autoFocus>
+            close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    )
+  }
   const list = (
     <Box
       sx={{
@@ -86,8 +113,10 @@ function Layout({ food }: { food: FoodList }) {
     >
       <nav>
         <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText primary="about the app" />
+          <ListItemButton onClick={handleClickOpen}>
+            <Typography variant="button" display="block" gutterBottom>
+              about the app
+            </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
@@ -99,7 +128,9 @@ function Layout({ food }: { food: FoodList }) {
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton>
-            <ListItemText primary="contact" />
+            <Typography variant="button" display="block" gutterBottom>
+              contact us
+            </Typography>
           </ListItemButton>
         </ListItem>
       </nav>
@@ -126,6 +157,8 @@ function Layout({ food }: { food: FoodList }) {
               closeModal={closeModal}
             />
           ) : null}
+
+          {open ? <SimpleDialog /> : null}
           <Outlet />
         </div>
       </MainBox>
