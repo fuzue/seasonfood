@@ -130,7 +130,9 @@ export default function FoodPage({food}: {food: FoodList}) {
           sx={{
             margin: '1em ',
           }}>
-          <Typography marginY={2} variant="h6" > Months in season </Typography>
+          <Typography marginY={2} variant="h6" > 
+            Months in season 
+          </Typography>
           <Grid container
             direction="row"
             spacing={3}

@@ -1,16 +1,18 @@
 import type { FoodList } from "../types/food";
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import React, { ReactEventHandler, useState } from "react";
 import HeaderBar from "../components/HeaderBar";
 import SearchResult from "../components/SearchResult";
+import SideBarDialog from "../components/SideBarDialog"
 
 /* MUI IMPORTS */
 import {
   createTheme, styled, Box, Drawer, ListItemButton,
-  ListItem, ThemeProvider, Typography, Button,
-  Dialog, DialogActions, DialogTitle, DialogContent, DialogContentText,
+  ListItem, ThemeProvider, Typography
 } from "@mui/material";
 
+
+//BASIC MUI COLORS AND BREAKPOINTS
 const theme = createTheme({
   palette: {
     primary: {
@@ -34,22 +36,7 @@ const theme = createTheme({
   },
 });
 
-
-
-
 function Layout({ food }: { food: FoodList }) {
-  const [ifSearched, setIfSearched] = useState(false);
-  const [searchResults, setSearchResults] = useState([] as FoodList);
-
-  const closeModal = () => setIfSearched(false);
-
-  const onSearch = (query: string, food: FoodList) => {
-    if (query != "") {
-      setIfSearched(true);
-      setSearchResults(food);
-    }
-  };
-
   const MainBox = styled(Box)(() => ({
     width: "100%",
     maxWidth: "450px",
@@ -62,48 +49,23 @@ function Layout({ food }: { food: FoodList }) {
     boxShadow: "3px 4px 8px #888888",
   }));
 
-  // open side drawer code
+  //search bar code
+  const [ifSearched, setIfSearched] = useState(false);
+  const [searchResults, setSearchResults] = useState([] as FoodList);
+  const closeModal = () => setIfSearched(false);
+
+  const onSearch = (query: string, food: FoodList) => {
+    if (query != "") {
+      setIfSearched(true);
+      setSearchResults(food);
+    }
+  };
+
+  // open side bar code
   const [state, setState] = useState(false);
-  const toggleDrawer = () => {
-    setState(!state);
-  };
-  const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-    console.log('click works')
-  };
-  const handleClose = () => {
-    setOpen(false)
-  };
-  //dialog box that opens with each element clicked
-  function SimpleDialog() {
-    return (
-      <Dialog open={open}
-        onClose={handleClose}
-        aria-labelledby="about"
-        aria-describedby="about the app"
-      >
-        <DialogTitle id="drawer-dialog-title">
-          {"About the app"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            This project came from a personal doubt: I had recently moved to Italy and didn't know when I could find fruits and vegetables I like in the supermarket, when each food was in season. After looking for sources of it, and finding very hard to read tables, I decided to build my own app to do it.
+  const toggleDrawer = () => setState(!state);
 
-            The idea was to create it as a scalable project, so it is simple to change the database to another country, or region.
-
-            It is also an objective of this app to encourage local the consumption of local produce - that was also a thing I noticed here in Italy: here many products publicize the region they are from, I believe that it is caused by the strong regionalism that exists in Italy. There are many products that read: "cheese from Piedmont", "oranges from Sicily" or "Olive oil from Liguria". That really motivated and boosted me look for more information about local produce and to consume fruits and vegetables from local producers.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="outlined" onClick={handleClose} autoFocus>
-            close
-          </Button>
-        </DialogActions>
-      </Dialog>
-    )
-  }
-  const list = (
+  const sideBarList = (
     <Box
       sx={{
         width: 250,
@@ -116,21 +78,21 @@ function Layout({ food }: { food: FoodList }) {
     >
       <nav>
         <ListItem disablePadding>
-          <ListItemButton onClick={handleClickOpen}>
+          <ListItemButton onClick={() => handleClickOpen('about')}>
             <Typography variant="button" display="block" gutterBottom>
               about the app
             </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => handleClickOpen('contribute')}>
             <Typography variant="button" display="block" gutterBottom>
               contribute
             </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => handleClickOpen('contact')}>
             <Typography variant="button" display="block" gutterBottom>
               contact us
             </Typography>
@@ -140,11 +102,24 @@ function Layout({ food }: { food: FoodList }) {
     </Box>
   );
 
+  //Side bar dialog code that opens with each element clicked
+  const [open, setOpen] = useState(false)
+  const [dialogType, setDialogType] = useState('')
+
+  const handleClose = () => setOpen(false);
+  const handleClickOpen = (itemClickedName:string) => {
+    setOpen(true);
+    setDialogType(itemClickedName);
+
+  }
+
+ 
+
   return (
     <ThemeProvider theme={theme}>
       <MainBox bgcolor="primary.white" className="main-container">
         <Drawer open={state} onClose={toggleDrawer}>
-          {list}
+          {sideBarList}
         </Drawer>
         <div className="main-layout">
           <HeaderBar
@@ -160,8 +135,8 @@ function Layout({ food }: { food: FoodList }) {
               closeModal={closeModal}
             />
           ) : null}
+          <SideBarDialog open={open} dialogType={dialogType} handleClose={handleClose} />
 
-          {open ? <SimpleDialog /> : null}
           <Outlet />
         </div>
       </MainBox>
