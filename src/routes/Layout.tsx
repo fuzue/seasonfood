@@ -1,6 +1,6 @@
 import type { FoodList } from "../types/food";
 import { Outlet } from "react-router-dom";
-import React, { ReactEventHandler, useState } from "react";
+import {  useState } from "react";
 import HeaderBar from "../components/HeaderBar";
 import SearchResult from "../components/SearchResult";
 import SideBarDialog from "../components/SideBarDialog"

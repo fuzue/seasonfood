@@ -1,5 +1,4 @@
 import type { FoodList } from "../types/food";
-
 import { monthEng, currentMonth } from "../utils/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect } from "react";
