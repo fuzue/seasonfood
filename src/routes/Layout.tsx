@@ -1,5 +1,4 @@
 import type { FoodList } from "../types/food";
-
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import HeaderBar from "../components/HeaderBar";

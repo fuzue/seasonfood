@@ -8,6 +8,7 @@ import FoodOfTheMonth from "./routes/FoodOfTheMonth";
 import FoodPage from "./routes/FoodPage";
 import Layout from "./routes/Layout";
 import { NotFound } from "./routes/NotFound";
+import ChooseCountry from "./routes/ChooseCountry";
 
 export default function App() {
   const [food, setFood] = useState([] as FoodList);
@@ -20,6 +21,7 @@ export default function App() {
       <div className="App">
         <Routes>
           <Route path="*" element={<NotFound />} />
+          <Route path="/choose" element={<ChooseCountry/>} />
           <Route path="/" element={<Layout food={food} />}>
             <Route index element={<Navigate to={`/month/${monthEng[currentMonth]}`} replace />} />
             <Route path="/foodpage/:id" element={<FoodPage key="foodpage"  food={food} />} />
