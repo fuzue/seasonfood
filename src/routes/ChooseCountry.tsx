@@ -1,19 +1,26 @@
 import { Box, Select, FormControl, InputLabel, MenuItem, SelectChangeEvent, Typography, Button, styled } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const countries = [
-  {'ITA': {
-    country: 'Italy',
-    language: 'Italian'
-  }},
-  {'BRA': {
-    country: 'Brazil',
-    language: 'Portuguese'
-  }},
-  {'POR': {
-    country: 'Portugal',
-    language: 'Portuguese'
-  }},
+  {
+    'ITA': {
+      country: 'Italy',
+      language: 'Italian'
+    }
+  },
+  {
+    'BRA': {
+      country: 'Brazil',
+      language: 'Portuguese'
+    }
+  },
+  {
+    'POR': {
+      country: 'Portugal',
+      language: 'Portuguese'
+    }
+  },
 ]
 
 
@@ -26,27 +33,33 @@ export default function ChooseCountry() {
   const [language, setLanguage] = useState('ENG');
   const handleLanguageChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value as string);
-  }
-
+  };
+  let navigate = useNavigate()
+  const handleSubmit = () => {
+    let path = `/`;
+    navigate(path);
+  };
   const GoButton = styled(Button)(() => ({
     backgroundColor: '#13bf8d',
     color: '#fff',
-    margin: '2em',
+    margin: '2em auto',
+    width: '5em',
     '&:hover': {
       backgroundColor: '#fff',
       color: '#13bf8d',
     }
-   
   }));
 
-   const languageSelect = () => {
+
+
+  const languageSelect = () => {
     return (
-      <Box sx={{ my: '1em'}}>
-        <Typography variant="h6" sx={{mb:'1em'}}> Please select a language</Typography>
+      <Box sx={{ my: '1em' }}>
+        <Typography variant="h6" sx={{ mb: '1em' }}> Please select a language</Typography>
         <FormControl fullWidth>
           <InputLabel id="language-select-label">Language</InputLabel>
           <Select variant="outlined"
-            sx={{ textAlign: 'start', pl: 1}}
+            sx={{ textAlign: 'start', pl: 1 }}
             labelId="language-select-label"
             id="language-select-label"
             value={language}
@@ -65,10 +78,10 @@ export default function ChooseCountry() {
     <Box sx={{ margin: '2em auto', width: '20em' }}>
       <Typography variant="h6"> Please select a country</Typography>
       <Box sx={{ margin: '2em' }}>
-        <FormControl fullWidth>
+        <FormControl fullWidth >
           <InputLabel id="demo-simple-select-label" >Country</InputLabel>
           <Select
-            sx={{ textAlign: 'start', pl: 1, borderColor: 'red'}}
+            sx={{ textAlign: 'start', pl: 1, borderColor: 'red' }}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={country}
@@ -79,13 +92,13 @@ export default function ChooseCountry() {
             <MenuItem value={'BRA'}>Brazil</MenuItem>
             <MenuItem value={'POR'}>Portugal</MenuItem>
           </Select>
-
-        </FormControl>
-        {languageSelect()}
+          {languageSelect()}
         <GoButton variant="contained"
-        
-        > Go
+          onClick={() => handleSubmit()}
+        >Go
         </GoButton>
+        </FormControl>
+        
       </Box>
     </Box>
   )
