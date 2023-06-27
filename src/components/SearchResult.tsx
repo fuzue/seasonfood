@@ -1,5 +1,4 @@
-import type { FoodList, FoodObject } from "../types/food";
-//import RenderFoods from "./RenderFoods";
+import type { FoodList } from "../types/food";
 import Item from "./Item"
 import { Box, Typography, Dialog, Grid } from "@mui/material";
 
@@ -37,8 +36,8 @@ function SearchResult(props: Props) {
     <Dialog
       open={ifSearched}
       onClose={closeModal}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby="search results"
+      aria-describedby="the results of your search are shown here"
       onClick={closeModal}
     >
       {searchResults.length === 0 ? (

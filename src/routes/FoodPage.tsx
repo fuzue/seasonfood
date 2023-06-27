@@ -1,5 +1,4 @@
 import type { FoodList } from "../types/food";
-
 import { monthEng, currentMonth } from "../utils/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -130,7 +129,9 @@ export default function FoodPage({food}: {food: FoodList}) {
           sx={{
             margin: '1em ',
           }}>
-          <Typography marginY={2} variant="h6" > Months in season </Typography>
+          <Typography marginY={2} variant="h6" > 
+            Months in season 
+          </Typography>
           <Grid container
             direction="row"
             spacing={3}

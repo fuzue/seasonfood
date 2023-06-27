@@ -1,23 +1,18 @@
 import type { FoodList } from "../types/food";
-
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import {  useState } from "react";
 import HeaderBar from "../components/HeaderBar";
 import SearchResult from "../components/SearchResult";
+import SideBarDialog from "../components/SideBarDialog"
 
 /* MUI IMPORTS */
 import {
-  createTheme,
-  styled,
-  Box,
-  Drawer,
-  ListItemButton,
-  ListItemText,
-  ListItem,
-  ThemeProvider,
-  Typography,
+  createTheme, styled, Box, Drawer, ListItemButton,
+  ListItem, ThemeProvider, Typography
 } from "@mui/material";
 
+
+//BASIC MUI COLORS AND BREAKPOINTS
 const theme = createTheme({
   palette: {
     primary: {
@@ -42,18 +37,6 @@ const theme = createTheme({
 });
 
 function Layout({ food }: { food: FoodList }) {
-  const [ifSearched, setIfSearched] = useState(false);
-  const [searchResults, setSearchResults] = useState([] as FoodList);
-
-  const closeModal = () => setIfSearched(false);
-
-  const onSearch = (query: string, food: FoodList) => {
-    if (query != "") {
-      setIfSearched(true);
-      setSearchResults(food);
-    }
-  };
-
   const MainBox = styled(Box)(() => ({
     width: "100%",
     maxWidth: "450px",
@@ -66,14 +49,23 @@ function Layout({ food }: { food: FoodList }) {
     boxShadow: "3px 4px 8px #888888",
   }));
 
-  //side drawer code
-  const [state, setState] = useState(false);
+  //search bar code
+  const [ifSearched, setIfSearched] = useState(false);
+  const [searchResults, setSearchResults] = useState([] as FoodList);
+  const closeModal = () => setIfSearched(false);
 
-  const toggleDrawer = () => {
-    setState(!state);
+  const onSearch = (query: string, food: FoodList) => {
+    if (query != "") {
+      setIfSearched(true);
+      setSearchResults(food);
+    }
   };
 
-  const list = (
+  // open side bar code
+  const [state, setState] = useState(false);
+  const toggleDrawer = () => setState(!state);
+
+  const sideBarList = (
     <Box
       sx={{
         width: 250,
@@ -86,31 +78,48 @@ function Layout({ food }: { food: FoodList }) {
     >
       <nav>
         <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText primary="about the app" />
+          <ListItemButton onClick={() => handleClickOpen('about')}>
+            <Typography variant="button" display="block" gutterBottom>
+              about the app
+            </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => handleClickOpen('contribute')}>
             <Typography variant="button" display="block" gutterBottom>
               contribute
             </Typography>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemText primary="contact" />
+          <ListItemButton onClick={() => handleClickOpen('contact')}>
+            <Typography variant="button" display="block" gutterBottom>
+              contact us
+            </Typography>
           </ListItemButton>
         </ListItem>
       </nav>
     </Box>
   );
 
+  //Side bar dialog code that opens with each element clicked
+  const [open, setOpen] = useState(false)
+  const [dialogType, setDialogType] = useState('')
+
+  const handleClose = () => setOpen(false);
+  const handleClickOpen = (itemClickedName:string) => {
+    setOpen(true);
+    setDialogType(itemClickedName);
+
+  }
+
+ 
+
   return (
     <ThemeProvider theme={theme}>
       <MainBox bgcolor="primary.white" className="main-container">
         <Drawer open={state} onClose={toggleDrawer}>
-          {list}
+          {sideBarList}
         </Drawer>
         <div className="main-layout">
           <HeaderBar
@@ -126,6 +135,8 @@ function Layout({ food }: { food: FoodList }) {
               closeModal={closeModal}
             />
           ) : null}
+          <SideBarDialog open={open} dialogType={dialogType} handleClose={handleClose} />
+
           <Outlet />
         </div>
       </MainBox>
