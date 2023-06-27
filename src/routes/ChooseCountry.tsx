@@ -2,25 +2,24 @@ import { Box, Select, FormControl, InputLabel, MenuItem, SelectChangeEvent, Typo
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const countries = [
+const countriesList = [
   {
-    'ITA': {
-      country: 'Italy',
-      language: 'Italian'
-    }
-  },
+    id: 'ITA',
+    name: 'Italy',
+    language: 'Italian'
+  }
+  ,
   {
-    'BRA': {
-      country: 'Brazil',
-      language: 'Portuguese'
-    }
-  },
+    id: 'BRA',
+    name: 'Brazil',
+    language: 'Portuguese'
+  }
+  ,
   {
-    'POR': {
-      country: 'Portugal',
-      language: 'Portuguese'
-    }
-  },
+    id: 'POR',
+    name: 'Portugal',
+    language: 'Portuguese'
+  }
 ]
 
 
@@ -50,7 +49,12 @@ export default function ChooseCountry() {
     }
   }));
 
+  const renderCountries =
+    countriesList.map((item, id) => {
+      return <MenuItem value={id} key={id}>{item.name}</MenuItem>
 
+    })
+  console.log(renderCountries, countriesList)
 
   const languageSelect = () => {
     return (
@@ -88,17 +92,18 @@ export default function ChooseCountry() {
             label="Country"
             onChange={handleCountryChange}
           >
-            <MenuItem value={'ITA'}>Italy</MenuItem>
+            {renderCountries}
+            {/* <MenuItem value={'ITA'}>Italy</MenuItem>
             <MenuItem value={'BRA'}>Brazil</MenuItem>
-            <MenuItem value={'POR'}>Portugal</MenuItem>
+            <MenuItem value={'POR'}>Portugal</MenuItem> */}
           </Select>
           {languageSelect()}
-        <GoButton variant="contained"
-          onClick={() => handleSubmit()}
-        >Go
-        </GoButton>
+          <GoButton variant="contained"
+            onClick={() => handleSubmit()}
+          >Go
+          </GoButton>
         </FormControl>
-        
+
       </Box>
     </Box>
   )
