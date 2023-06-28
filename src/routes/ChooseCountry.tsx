@@ -52,9 +52,7 @@ export default function ChooseCountry() {
   const renderCountries =
     countriesList.map((item, id) => {
       return <MenuItem value={id} key={id}>{item.name}</MenuItem>
-
     })
-  console.log(renderCountries, countriesList)
 
   const languageSelect = () => {
     return (
