@@ -1,7 +1,6 @@
 import RenderFoods from "./RenderFoods";
 import Dialog from "@mui/material/Dialog";
 import { Box, Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
 
 type Props = {
   searchResults: Food
@@ -11,8 +10,6 @@ type Props = {
 
 function SearchResult(props: Props) {
   const { searchResults, ifSearched, closeModal } = props;
-
-  const location = useLocation();
 
   return (
     <Dialog

@@ -10,6 +10,10 @@ function FoodPage({food}: {food: Food}) {
   const seasonMonths = [] as string[]; //  months array to update the list of months in season
   let seasonStatus = ""; // status of the specific fruit or vegetable
 
+  if (selectedFood === undefined) {
+    return (<></>)
+  }
+
   for (let i = 0; i < 12; i++) {
     if (selectedFood[`month_${i}`] === "x") {
       seasonMonths.push(monthEng[i]);
@@ -112,7 +116,7 @@ function FoodPage({food}: {food: Food}) {
           <Typography variant="h6">
             {selectedFood.nameEng}:
           </Typography>
-          <Typography variant="p">{seasonStatus}</Typography>
+          <Typography variant="subtitle1">{seasonStatus}</Typography>
         </Box>
       </Box>
       

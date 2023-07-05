@@ -13,7 +13,7 @@ export default function FoodOfTheMonth({food} : {food: Food}) {
 
   const monthFood = [];
   for (let i = 0; i < food.length; i++) {
-    if (food[i][`month_${monthNum}`] === "x") {
+    if (food[i][`month_${monthNum}` as string] === "x") {
       monthFood.push(food[i]);
     }
   }
@@ -29,6 +29,7 @@ export default function FoodOfTheMonth({food} : {food: Food}) {
 
   //variables to handle the changing tabs
   const [foodType, setFoodType] = useState("Fruits" as FoodType);
+  // @ts-ignore
   const handleChange = (event: ChangeEvent<EventTarget>, newFoodType: FoodType) => {
     setFoodType(newFoodType);
   };

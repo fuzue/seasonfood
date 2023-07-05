@@ -8,7 +8,6 @@ import Layout from "./routes/Layout";
 
 export default function App() {
   const [food, setFood] = useState([] as Food)
-
   const { readRemoteFile } = usePapaParse();
 
   if(food.length === 0) {

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Seasonal Food</string>
+    <string name="title_activity_main">Seasonal Food</string>
+    <string name="package_name">ue.fuz.seasonalfood</string>
+    <string name="custom_url_scheme">ue.fuz.seasonalfood</string>
+</resources>

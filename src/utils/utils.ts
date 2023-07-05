@@ -13,4 +13,4 @@ export const monthEng = [
   "October",
   "November",
   "December"
-]
+] as string[]
