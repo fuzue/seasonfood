@@ -11,7 +11,7 @@ export default function App() {
   const { readRemoteFile } = usePapaParse();
 
   if(food.length === 0) {
-    readRemoteFile("http://localhost:5173/ITALIA-fruits-and-veggies.csv", {
+    readRemoteFile("/ITALIA-fruits-and-veggies.csv", {
       download: true,
       header: true,
       complete: (result: any) => {
@@ -21,7 +21,7 @@ export default function App() {
   }
 
   return (
-    <BrowserRouter basename={"/seasonfood"}>
+    <BrowserRouter>
       <div className="App">
       {food.length > 0 ?
         <Routes>

@@ -123,7 +123,6 @@ function FoodPage({food}: {food: Food}) {
       {/* BOTTOM GRID WITH MONTHS */}
       <Box
           sx={{
-            margin: '1em ',
           }}>
           <Typography marginY={2} variant="h6" > Months in season </Typography>
           <Grid container

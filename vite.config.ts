@@ -5,7 +5,7 @@ const ASSET_URL = process.env.ASSET_URL || '';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: `/seasonfood`,
+  base: `/`,
   server: {
     host: '0.0.0.0'
   },
