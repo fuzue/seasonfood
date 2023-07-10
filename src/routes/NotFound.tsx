@@ -12,29 +12,3 @@ export function NotFound() {
   )
 }
 
-/* 
-export function Fallback() {
-  return <p>HELLO</p>;
-}
-
-export function RootErrorBoundary() {
-  let error = useRouteError() as Error;
-  return (
-    <div>
-      <h1>Uh oh, something went terribly wrong 😩</h1>
-      <pre>{error.message || JSON.stringify(error)}</pre>
-      <button onClick={() => (window.location.href = "/")}>
-        Click here to reload the app
-      </button>
-    </div>
-  );
-} 
-
-  let error = useRouteError();
-  console.log(error)
-
-  // We only care to handle 401's at this level, so if this is not a 401
-  // ErrorResponse, re-throw to let the RootErrorBoundary handle it
-  if (!isRouteErrorResponse(error) || error.status !== 401) {
-    throw error;
-  } */

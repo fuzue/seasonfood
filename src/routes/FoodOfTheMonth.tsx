@@ -4,13 +4,18 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { Box, Tab, Tabs, styled, alpha } from "@mui/material";
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import RenderFoods from "../components/RenderFoods";
-import { monthEng } from "../utils/utils";
+import { monthEng, /* monthIta, lngs */ } from "../utils/utils";
+
+import { useTranslation, /* Trans */ } from "react-i18next"
 
 export default function FoodOfTheMonth({food} : {food: FoodList}) {
-  const { selectedMonthName } = useParams();
-
-  const monthNum = monthEng.findIndex((month) => month === selectedMonthName);
-
+  const { selectedMonthNum  } = useParams();
+  
+  const { t } = useTranslation()
+  const monthNum = Number(selectedMonthNum) - 1
+  const monthName = monthEng[monthNum] 
+  
+  //month chnage arrows function
   const navigate = useNavigate();
   useEffect(() => {
     if(monthNum < 0 || monthNum > 11) {
@@ -50,8 +55,8 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
   };
 
   //variables to change month when pressing the arrows
-  const prevMonth = monthEng[monthNum != 0 ? monthNum - 1 : 11];
-  const nextMonth = monthEng[monthNum != 11 ? monthNum + 1 : 0];
+  const prevMonth = monthNum != 0 ? monthNum - 1 : 11;
+  const nextMonth = monthNum != 11 ? monthNum + 1 : 0;
 
   //styled MUI arrows
   const ArrowButton = styled(Link)(({ theme }) => ({
@@ -75,20 +80,21 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
     <Box>
       <div className="month-container">
         <div className="selected-month">
-          <ArrowButton to={`/month/${prevMonth}`}>
+          <ArrowButton to={`/month/${prevMonth + 1}`}>
             <ArrowLeft />
           </ArrowButton>
           <div className="month-title">
-            <h4>{monthEng[monthNum]}</h4>
+            <h4>{monthName}</h4>
           </div>
-          <ArrowButton to={`/month/${nextMonth}`}>
+          <ArrowButton to={`/month/${nextMonth + 1}`}>
             <ArrowRight />
           </ArrowButton>
         </div>
-        <p className="food-counter-text">
-          {fruitsList.length} fruits and {veggiesList.length} vegetables in
-          season this month
-        </p>
+          
+            <p className="food-counter-text">
+              {fruitsList.length} {t('fruits')} {veggiesList.length} {t("vegetables")} 
+            </p>
+         
         <div className="button-wrapper">
           <Tabs
             value={foodType}

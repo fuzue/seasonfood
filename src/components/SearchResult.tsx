@@ -11,7 +11,6 @@ type Props = {
 function SearchResult(props: Props) {
   const { searchResults, ifSearched, closeModal } = props;
 
-
   const foodItems = searchResults.map((item, key) => {
     return ( <Item key={key} {...item} />);
   })

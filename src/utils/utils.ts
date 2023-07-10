@@ -1,5 +1,5 @@
 const date = new Date();
-export const currentMonth = date.getMonth();
+export const currentMonth = date.getMonth() + 1;
 export const monthEng = [
   "January",
   "February",
@@ -14,3 +14,21 @@ export const monthEng = [
   "November",
   "December"
 ]
+export const monthIta = [
+  "Gennaio",
+  "Febbraio",
+  "Marzo",
+  "Aprile",
+  "Maggio",
+  "Giugno",
+  "Luglio",
+  "Agosto",
+  "Setembre",
+  "Ottobre",
+  "Novembre",
+  "Dicembre"
+]
+export const lngs = {
+  en: { nativeName : "English" },
+  it: { nativeName: "Italiano" }
+}
