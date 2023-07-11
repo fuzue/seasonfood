@@ -8,14 +8,10 @@ import { useTranslation } from "react-i18next"
 
 export default function FoodOfTheMonth({food} : {food: FoodList}) {
   const { selectedMonthNum  } = useParams();
-  
-  const { t, i18n } = useTranslation()
-  const lngs = {
-    en: { nativeName: "English" },
-    it: { nativeName: "Italiano" }
-  } as { [key:string]: any}
-
+  console.log(selectedMonthNum)
+  const { t } = useTranslation()
   const monthNum = Number(selectedMonthNum) - 1
+
   
   //month chnage arrows function
   const navigate = useNavigate();
@@ -80,11 +76,6 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
   }));
   return (
     <Box>
-
-      {Object.keys(lngs).map((lng) => (
-        <button type="submit" key={lng} onClick={() => i18n.changeLanguage(lng)} disabled={i18n.resolvedLanguage === lng}>{lngs[lng].nativeName}</button>
-      ))}
-       
       <div className="month-container">
         <div className="selected-month">
           <ArrowButton to={`/month/${prevMonth + 1}`}>
@@ -97,7 +88,6 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
             <ArrowRight />
           </ArrowButton>
         </div>
-          
             <p className="food-counter-text">
               {t('fruitsNumber', { count: fruitsList.length, fruits: fruitsList.length})
                + ' ' + t('veggiesNumber', { veggies: veggiesList.length})}
@@ -119,4 +109,6 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
       
     </Box>
   );
+  
 }
+

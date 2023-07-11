@@ -12,9 +12,7 @@ import {
 }  from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { useTranslation } from "react-i18next";
-
-
+import { useTranslation,  } from "react-i18next";
 
 type Props = {
   ifSearched: boolean
@@ -115,7 +113,7 @@ export default function HeaderBar(props: Props) {
           component="div"
           sx={{ flexGrow: 1, textAlign: "left" }}
         >
-          {t("inSeason")}
+          {t("appTitle")}
         </Typography>
         <Search>
           <SearchIconWrapper>
@@ -131,7 +129,7 @@ export default function HeaderBar(props: Props) {
           </SearchIconWrapper>
           <form onSubmit={e => handleSubmit(e)}>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder={t('search')}
               inputProps={{ "aria-label": "search" }}
               inputRef={query}
               id="search-bar"
@@ -139,6 +137,7 @@ export default function HeaderBar(props: Props) {
           </form>
         </Search>
       </Toolbar>
+      
     </StyledAppBar>
   );
 }
