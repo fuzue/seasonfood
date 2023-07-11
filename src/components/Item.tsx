@@ -2,6 +2,8 @@ import type { FoodObject } from "../types/food"
 
 import { Link } from "react-router-dom";
 import { Box, Typography, styled } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
 
 const ImgBox = styled(Box)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -14,6 +16,7 @@ const ImgBox = styled(Box)(({ theme }) => ({
 }));
 
 function Item(props: FoodObject) {
+  const { t } = useTranslation()
   const image = props.image.toLowerCase();
   return (
     <Link to={`/foodpage/${props.description[0].slug}`}>
@@ -24,7 +27,7 @@ function Item(props: FoodObject) {
           alt={`image of ${image}`}
         />
         <Typography sx={{ paddingBottom: "0.25em" }}>
-          {props.description[0].name}
+          {t(props.description[0].name)}
         </Typography>
       </ImgBox>
     </Link>

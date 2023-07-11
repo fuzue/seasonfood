@@ -4,8 +4,6 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { Box, Tab, Tabs, styled, alpha } from "@mui/material";
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import RenderFoods from "../components/RenderFoods";
-//import { monthEng, monthIta/* , lngs */ } from "../utils/utils";
-
 import { useTranslation } from "react-i18next"
 
 export default function FoodOfTheMonth({food} : {food: FoodList}) {
@@ -18,9 +16,6 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
   } as { [key:string]: any}
 
   const monthNum = Number(selectedMonthNum) - 1
-  console.log(monthNum)
-  
-
   
   //month chnage arrows function
   const navigate = useNavigate();
@@ -104,7 +99,8 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
         </div>
           
             <p className="food-counter-text">
-              {fruitsList.length} {t('fruitsText')} {veggiesList.length} {t("vegetablesText")} 
+              {t('fruitsNumber', { count: fruitsList.length, fruits: fruitsList.length})
+               + ' ' + t('veggiesNumber', { veggies: veggiesList.length})}
             </p>
          
         <div className="button-wrapper">

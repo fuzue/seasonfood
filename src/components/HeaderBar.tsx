@@ -12,6 +12,9 @@ import {
 }  from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { useTranslation } from "react-i18next";
+
+
 
 type Props = {
   ifSearched: boolean
@@ -21,6 +24,7 @@ type Props = {
 }
 
 export default function HeaderBar(props: Props) {
+  const { t } = useTranslation()
   const query = useRef() as React.MutableRefObject<HTMLFormElement>;
 
   useEffect(() => {
@@ -111,7 +115,7 @@ export default function HeaderBar(props: Props) {
           component="div"
           sx={{ flexGrow: 1, textAlign: "left" }}
         >
-          In season in Italy
+          {t("inSeason")}
         </Typography>
         <Search>
           <SearchIconWrapper>

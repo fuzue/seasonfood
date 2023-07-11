@@ -14,21 +14,4 @@ export const monthEng = [
   "November",
   "December"
 ]
-export const monthIta = [
-  "Gennaio",
-  "Febbraio",
-  "Marzo",
-  "Aprile",
-  "Maggio",
-  "Giugno",
-  "Luglio",
-  "Agosto",
-  "Setembre",
-  "Ottobre",
-  "Novembre",
-  "Dicembre"
-]
-/* export const lngs = {
-  en: { nativeName : "English" },
-  it: { nativeName: "Italiano" }
-} */
+

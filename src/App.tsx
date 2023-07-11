@@ -18,7 +18,7 @@ export default function App() {
   return (
     food.length > 0 ?
       <BrowserRouter basename={"/seasonfood"}>
-        <div className="App"> {t('food')}
+        <div className="App"> 
           <Routes>            
               <Route path="*" element={<NotFound />} />
               <Route path="/" element={<Layout food={food} />}>
