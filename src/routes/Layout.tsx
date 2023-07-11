@@ -110,10 +110,7 @@ function Layout({ food }: { food: FoodList }) {
   const handleClickOpen = (itemClickedName:string) => {
     setOpen(true);
     setDialogType(itemClickedName);
-
   }
-
- 
 
   return (
     <ThemeProvider theme={theme}>

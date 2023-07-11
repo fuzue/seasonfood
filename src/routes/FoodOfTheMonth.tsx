@@ -4,13 +4,16 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { Box, Tab, Tabs, styled, alpha } from "@mui/material";
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import RenderFoods from "../components/RenderFoods";
-import { monthEng } from "../utils/utils";
+import { useTranslation } from "react-i18next"
 
 export default function FoodOfTheMonth({food} : {food: FoodList}) {
-  const { selectedMonthName } = useParams();
+  const { selectedMonthNum  } = useParams();
+  console.log(selectedMonthNum)
+  const { t } = useTranslation()
+  const monthNum = Number(selectedMonthNum) - 1
 
-  const monthNum = monthEng.findIndex((month) => month === selectedMonthName);
-
+  
+  //month chnage arrows function
   const navigate = useNavigate();
   useEffect(() => {
     if(monthNum < 0 || monthNum > 11) {
@@ -50,8 +53,8 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
   };
 
   //variables to change month when pressing the arrows
-  const prevMonth = monthEng[monthNum != 0 ? monthNum - 1 : 11];
-  const nextMonth = monthEng[monthNum != 11 ? monthNum + 1 : 0];
+  const prevMonth = monthNum != 0 ? monthNum - 1 : 11;
+  const nextMonth = monthNum != 11 ? monthNum + 1 : 0;
 
   //styled MUI arrows
   const ArrowButton = styled(Link)(({ theme }) => ({
@@ -75,20 +78,21 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
     <Box>
       <div className="month-container">
         <div className="selected-month">
-          <ArrowButton to={`/month/${prevMonth}`}>
+          <ArrowButton to={`/month/${prevMonth + 1}`}>
             <ArrowLeft />
           </ArrowButton>
           <div className="month-title">
-            <h4>{monthEng[monthNum]}</h4>
+            <h4>{t(`month_${monthNum}`)}</h4>
           </div>
-          <ArrowButton to={`/month/${nextMonth}`}>
+          <ArrowButton to={`/month/${nextMonth + 1}`}>
             <ArrowRight />
           </ArrowButton>
         </div>
-        <p className="food-counter-text">
-          {fruitsList.length} fruits and {veggiesList.length} vegetables in
-          season this month
-        </p>
+            <p className="food-counter-text">
+              {t('fruitsNumber', { count: fruitsList.length, fruits: fruitsList.length})
+               + ' ' + t('veggiesNumber', { veggies: veggiesList.length})}
+            </p>
+         
         <div className="button-wrapper">
           <Tabs
             value={foodType}
@@ -96,12 +100,15 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
             sx={{ fontWeight: 700 }}
             aria-label="tabs for the selection of fruits, vegetables or others"
           >
-            <Tab label="Fruits" value="Fruits" />
-            <Tab label="Veggies" value="Veggies" />
+            <Tab label={t('fruits')} value="Fruits" />
+            <Tab label={t('vegetables')} value="Veggies"  />
           </Tabs>
         </div>
         <ItemsBox>{changeTab(foodType)}</ItemsBox>
       </div>
+      
     </Box>
   );
+  
 }
+
