@@ -28,7 +28,7 @@ export const monthIta = [
   "Novembre",
   "Dicembre"
 ]
-export const lngs = {
+/* export const lngs = {
   en: { nativeName : "English" },
   it: { nativeName: "Italiano" }
-}
+} */

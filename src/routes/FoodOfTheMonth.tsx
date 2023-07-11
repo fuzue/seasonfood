@@ -4,16 +4,23 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { Box, Tab, Tabs, styled, alpha } from "@mui/material";
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import RenderFoods from "../components/RenderFoods";
-import { monthEng, /* monthIta, lngs */ } from "../utils/utils";
+//import { monthEng, monthIta/* , lngs */ } from "../utils/utils";
 
-import { useTranslation, /* Trans */ } from "react-i18next"
+import { useTranslation } from "react-i18next"
 
 export default function FoodOfTheMonth({food} : {food: FoodList}) {
   const { selectedMonthNum  } = useParams();
   
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const lngs = {
+    en: { nativeName: "English" },
+    it: { nativeName: "Italiano" }
+  } as { [key:string]: any}
+
   const monthNum = Number(selectedMonthNum) - 1
-  const monthName = monthEng[monthNum] 
+  console.log(monthNum)
+  
+
   
   //month chnage arrows function
   const navigate = useNavigate();
@@ -78,13 +85,18 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
   }));
   return (
     <Box>
+
+      {Object.keys(lngs).map((lng) => (
+        <button type="submit" key={lng} onClick={() => i18n.changeLanguage(lng)} disabled={i18n.resolvedLanguage === lng}>{lngs[lng].nativeName}</button>
+      ))}
+       
       <div className="month-container">
         <div className="selected-month">
           <ArrowButton to={`/month/${prevMonth + 1}`}>
             <ArrowLeft />
           </ArrowButton>
           <div className="month-title">
-            <h4>{monthName}</h4>
+            <h4>{t(`month_${monthNum}`)}</h4>
           </div>
           <ArrowButton to={`/month/${nextMonth + 1}`}>
             <ArrowRight />
@@ -92,7 +104,7 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
         </div>
           
             <p className="food-counter-text">
-              {fruitsList.length} {t('fruits')} {veggiesList.length} {t("vegetables")} 
+              {fruitsList.length} {t('fruitsText')} {veggiesList.length} {t("vegetablesText")} 
             </p>
          
         <div className="button-wrapper">
@@ -102,12 +114,13 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
             sx={{ fontWeight: 700 }}
             aria-label="tabs for the selection of fruits, vegetables or others"
           >
-            <Tab label="Fruits" value="Fruits" />
-            <Tab label="Veggies" value="Veggies" />
+            <Tab label={t('fruits')} value="Fruits" />
+            <Tab label={t('vegetables')} value="Veggies"  />
           </Tabs>
         </div>
         <ItemsBox>{changeTab(foodType)}</ItemsBox>
       </div>
+      
     </Box>
   );
 }

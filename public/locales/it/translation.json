@@ -1,0 +1,19 @@
+{
+  "food": "i18next italiano",
+  "fruits": "Frutti",
+  "vegetables": "Verdure",
+  "fruitsText": "frutti e",
+  "vegetablesText": "verdure in stagione questo mese",
+  "month_1":  "Gennaio",
+  "month_2": "Febbraio",
+  "month_3": "Marzo",
+  "month_4": "Aprile",
+  "month_5": "Maggio",
+  "month_6": "Giugno",
+  "month_7": "Luglio",
+  "month_8": "Agosto",
+  "month_9": "Setembre",
+  "month_10": "Ottobre",
+  "month_11": "Novembre",
+  "month_12": "Dicembre"
+}
