@@ -24,9 +24,9 @@ export default function FoodPage({ food }: { food: FoodList }) {
   for (let i = 0; i < months.length; i++) {
     if (selectedFood && selectedFood.season[i] === true) {
       seasonMonths.push(months[i]);
-      seasonStatus = 'notInSeason';
+      seasonStatus = 'FoodPage_notInSeasonText';
       if (seasonMonths.includes(months[currentMonth])) {
-        seasonStatus = 'inSeason';
+        seasonStatus = 'FoodPage_inSeasonText';
       }
     }
   }
@@ -84,8 +84,7 @@ export default function FoodPage({ food }: { food: FoodList }) {
         >
           <GridBox
             sx={monthColor(month)}>
-            <Link to={`/month/${userNumber}`} //how?
-            >
+            <Link to={`/month/${userNumber}`}>
               {t(`month_${month}`)}
             </Link>
           </GridBox>
@@ -101,7 +100,7 @@ export default function FoodPage({ food }: { food: FoodList }) {
       alignItems="center">
       <BackButton
         variant="outlined"
-        onClick={() => backBtn(-1)}>{t('back')}
+        onClick={() => backBtn(-1)}>{t('backButton')}
       </BackButton>
       <Box
         display='flex'
@@ -121,7 +120,7 @@ export default function FoodPage({ food }: { food: FoodList }) {
           justifyContent="center"
           width="50%">
           <Typography variant="h6"> {/* typescript problem */}
-            {t(selectedFood?.description[0].name)}:
+            {t(selectedFood?selectedFood.description[0].name:'FOOD NOT FOUND')}:
           </Typography>
           <Typography>{t(seasonStatus)}</Typography>
         </Box>
@@ -133,7 +132,7 @@ export default function FoodPage({ food }: { food: FoodList }) {
           margin: '1em ',
         }}>
         <Typography marginY={2} variant="h6" >
-          {t('monthsInSeason')}
+          {t('FoodPage_monthsInSeason')}
         </Typography>
         <Grid container
           direction="row"
