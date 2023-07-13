@@ -1,4 +1,4 @@
-import { DialogTitle, DialogContent, DialogContentText, Link, Typography}
+import { DialogTitle, DialogContent, DialogContentText, Link }
   from "@mui/material";
 
 //dialog box that opens with each element clicked
