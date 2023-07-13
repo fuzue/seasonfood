@@ -16,7 +16,6 @@ import {
   ThemeProvider,
   Typography,
   Stack,
-  IconButton,
   Divider,
   FormControl,
   MenuItem,
@@ -25,7 +24,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { Close } from "@mui/icons-material";
+//import { Close } from "@mui/icons-material";
 
 //BASIC MUI COLORS AND BREAKPOINTS
 const theme = createTheme({
