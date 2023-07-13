@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "ue.fuz.seasonalfood"
+    namespace "org.fuzue.seasonalfood"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "ue.fuz.seasonalfood"
+        applicationId "org.fuzue.seasonalfood"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
