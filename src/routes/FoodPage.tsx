@@ -98,14 +98,7 @@ export default function FoodPage({ food }: { food: FoodList }) {
   }
 
   return (
-    <Box
-      marginX={1}
-      justifyContent="space-between"
-      alignItems="center">
-      <BackButton
-        variant="outlined"
-        onClick={() => backBtn(-1)}>{t('backButton')}
-      </BackButton>
+
       <Box
         display='flex'
         justifyContent='center'
@@ -128,7 +121,6 @@ export default function FoodPage({ food }: { food: FoodList }) {
           </Typography>
           <Typography>{t(seasonStatus)}</Typography>
         </Box>
-      </Box>
 
       {/* BOTTOM GRID WITH MONTHS */}
       <Box
