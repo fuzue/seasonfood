@@ -90,7 +90,7 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
         </div>
             <p className="food-counter-text">
               {t('FoodOfTheMonth_fruitsNumber', { count: fruitsList.length, fruits: fruitsList.length})
-               + ' ' + t('FoodOfTheMonth_veggiesNumber', { veggies: veggiesList.length})}
+               + ' ' + t('FoodOfTheMonth_veggiesNumber', { count: veggiesList.length, veggies: veggiesList.length})}
             </p>
          
         <div className="button-wrapper">
@@ -100,8 +100,8 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
             sx={{ fontWeight: 700 }}
             aria-label="tabs for the selection of fruits, vegetables or others"
           >
-            <Tab label={t('FoodOfTheMonth_fruits')} value="Fruits" />
-            <Tab label={t('FoodOfTheMonth_vegetables')} value="Veggies"  />
+            <Tab label={t('FoodOfTheMonth_fruitsTabText')} value="Fruits" />
+            <Tab label={t('FoodOfTheMonth_vegetablesTabText')} value="Veggies"  />
           </Tabs>
         </div>
         <ItemsBox>{changeTab(foodType)}</ItemsBox>

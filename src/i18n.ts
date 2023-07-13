@@ -9,7 +9,7 @@ i18next
 .use(Backend)
 .init({
   backend: {
-    loadPath: `${import.meta.env.VITE_BASE_URL}/locales/{{lng}}/{{ns}}.json`,
+    loadPath: `${import.meta.env.VITE_BASE_URL}locales/{{lng}}/{{ns}}.json`,
   },
   debug: true,
   fallbackLng: 'en', 
