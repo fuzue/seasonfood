@@ -14,6 +14,10 @@ export default function FoodPage({ food }: { food: FoodList }) {
   const seasonMonths = [] as string[]; //  months array to update the list of months in season
   let seasonStatus = ""; // status of the specific fruit or vegetable
 
+  if (selectedFood === undefined) {
+    return (<></>)
+  }
+
   const navigate = useNavigate();
   useEffect(() => {
     if (!selectedFood) {

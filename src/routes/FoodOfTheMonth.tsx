@@ -12,8 +12,7 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
   const { t } = useTranslation()
   const monthNum = Number(selectedMonthNum) - 1
 
-  
-  //month chnage arrows function
+  //month change arrows function
   const navigate = useNavigate();
   useEffect(() => {
     if(monthNum < 0 || monthNum > 11) {
@@ -38,6 +37,7 @@ export default function FoodOfTheMonth({food} : {food: FoodList}) {
 
   //variables to handle the changing tabs
   const [foodType, setFoodType] = useState("Fruits" as FoodCategory);
+  // @ts-ignore
   const handleChange = (event: ChangeEvent<EventTarget>, newFoodCategory: FoodCategory) => {
     setFoodType(newFoodCategory);
   };

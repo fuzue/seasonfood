@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     food.length > 0 ?
-      <BrowserRouter basename={"/seasonfood"}>
+      <BrowserRouter basename={import.meta.env.VITE_BASE_URL}>
         <div className="App"> 
         {Object.keys(lngs).map((lng) => (
         <button type="submit" key={lng} onClick={() => i18n.changeLanguage(lng)} disabled={i18n.resolvedLanguage === lng}>{lngs[lng].nativeName}</button>
