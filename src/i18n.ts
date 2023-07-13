@@ -8,6 +8,9 @@ i18next
 .use(LanguageDetector)
 .use(Backend)
 .init({
+  backend: {
+    loadPath: `${import.meta.env.VITE_BASE_URL}/locales/{{lng}}/{{ns}}.json`,
+  },
   debug: true,
   fallbackLng: 'en', 
   saveMissing: true,  
