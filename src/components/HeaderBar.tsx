@@ -7,22 +7,23 @@ import {
   alpha,
   Toolbar,
   IconButton,
-  Typography,
-  InputBase
-}  from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import { useTranslation,  } from "react-i18next";
+  InputBase,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
+import { useTranslation } from "react-i18next";
+import { ArrowBackIosNew } from "@mui/icons-material";
+import { useNavigate, useLocation } from "react-router-dom";
 
 type Props = {
-  ifSearched: boolean
-  food: FoodList
-  onSearch: (query: string, food: FoodList) => void
-  toggleDrawer: () => void
-}
+  ifSearched: boolean;
+  food: FoodList;
+  onSearch: (query: string, food: FoodList) => void;
+  toggleDrawer: () => void;
+};
 
 export default function HeaderBar(props: Props) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const query = useRef() as React.MutableRefObject<HTMLFormElement>;
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export default function HeaderBar(props: Props) {
       backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: "8em",
+    width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
       width: "auto",
@@ -95,26 +96,24 @@ export default function HeaderBar(props: Props) {
     marginTop: "0",
   }));
 
+  const navigate = useNavigate();
+  const loaction = useLocation();
+
   return (
     <StyledAppBar position="static">
-      <Toolbar sx={{ height: "62px" }}>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          onClick={props.toggleDrawer}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ flexGrow: 1, textAlign: "left" }}
-        >
-          {t("Header_appTitle")}
-        </Typography>
+      <Toolbar>
+        {loaction.pathname.split("/")[1] === "foodpage" && (
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => navigate(-1)}
+            sx={{ mr: "auto" }}
+          >
+            <ArrowBackIosNew />
+          </IconButton>
+        )}
         <Search>
           <SearchIconWrapper>
             <IconButton
@@ -127,17 +126,26 @@ export default function HeaderBar(props: Props) {
               <SearchIcon type="submit" />
             </IconButton>
           </SearchIconWrapper>
-          <form onSubmit={e => handleSubmit(e)}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <StyledInputBase
-              placeholder={t('Header_searchBar')}
+              placeholder={t("Header_searchBar")}
               inputProps={{ "aria-label": "search" }}
               inputRef={query}
               id="search-bar"
             />
           </form>
         </Search>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="open drawer"
+          onClick={props.toggleDrawer}
+          sx={{ ml: 0.5 }}
+        >
+          <MenuIcon />
+        </IconButton>
       </Toolbar>
-      
     </StyledAppBar>
   );
 }

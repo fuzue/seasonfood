@@ -12,23 +12,23 @@ import { useTranslation } from "react-i18next";
 
 export default function App() {
   const [food, setFood] = useState([] as FoodList);
-  
+
   const { i18n } = useTranslation();
   const lngs = {
     en: { nativeName: "English" },
     it: { nativeName: "Italiano" }
   } as { [key:string]: any}
-  
+
   if (food.length === 0) fetchData(setFood, `ITALIA-fruits-and-veggies.csv`)
 
   return (
     food.length > 0 ?
       <BrowserRouter basename={import.meta.env.VITE_BASE_URL}>
-        <div className="App"> 
+        <div className="App">
         {Object.keys(lngs).map((lng) => (
         <button type="submit" key={lng} onClick={() => i18n.changeLanguage(lng)} disabled={i18n.resolvedLanguage === lng}>{lngs[lng].nativeName}</button>
       ))}
-          <Routes>            
+          <Routes>
               <Route path="*" element={<NotFound />} />
               <Route path="/" element={<Layout food={food} />}>
               <Route index element={<Navigate to={`/month/${currentMonth}`} replace />} />
