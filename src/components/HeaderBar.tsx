@@ -1,3 +1,5 @@
+import type { FoodList } from "../types/food";
+
 import { useRef, useEffect } from "react";
 import {
   AppBar,
@@ -10,15 +12,17 @@ import {
 }  from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { useTranslation,  } from "react-i18next";
 
 type Props = {
   ifSearched: boolean
-  food: Food
-  onSearch: (query: string, food: Food) => void
+  food: FoodList
+  onSearch: (query: string, food: FoodList) => void
   toggleDrawer: () => void
 }
 
 export default function HeaderBar(props: Props) {
+  const { t } = useTranslation()
   const query = useRef() as React.MutableRefObject<HTMLFormElement>;
 
   useEffect(() => {
@@ -33,12 +37,12 @@ export default function HeaderBar(props: Props) {
     event.preventDefault();
   };
 
-  const searchFilterFood = (food: Food) => {
+  const searchFilterFood = (food: FoodList) => {
     if (query.current.value === "") {
       return food;
     }
     return food.filter((item) => {
-      return item.nameEng
+      return item.description[0].name
         .toLowerCase()
         .includes(query.current.value.trim().toLowerCase());
     });
@@ -75,7 +79,6 @@ export default function HeaderBar(props: Props) {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-
       width: "100%",
       [theme.breakpoints.up("sm")]: {
         width: "12ch",
@@ -110,7 +113,7 @@ export default function HeaderBar(props: Props) {
           component="div"
           sx={{ flexGrow: 1, textAlign: "left" }}
         >
-          In season in Italy
+          {t("appTitle")}
         </Typography>
         <Search>
           <SearchIconWrapper>
@@ -126,7 +129,7 @@ export default function HeaderBar(props: Props) {
           </SearchIconWrapper>
           <form onSubmit={e => handleSubmit(e)}>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder={t('search')}
               inputProps={{ "aria-label": "search" }}
               inputRef={query}
               id="search-bar"
@@ -134,6 +137,7 @@ export default function HeaderBar(props: Props) {
           </form>
         </Search>
       </Toolbar>
+      
     </StyledAppBar>
   );
 }

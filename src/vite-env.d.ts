@@ -9,4 +9,3 @@ type Food = FoodObject[]
 interface FoodObject {
     [prop: string]: string;
 }
-

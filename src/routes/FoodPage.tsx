@@ -1,12 +1,16 @@
-import { monthEng, currentMonth } from "../utils/utils";
+import type { FoodList } from "../types/food";
+import { currentMonth } from "../utils/utils";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
-
-function FoodPage({food}: {food: Food}) {
+export default function FoodPage({ food }: { food: FoodList }) {
   const { id } = useParams();
-  const selectedFood = food.find((f) => f.id === id);
+  const { t } = useTranslation();
+
+  const selectedFood = food.find(item => item.description[0].slug === id);
   const seasonMonths = [] as string[]; //  months array to update the list of months in season
   let seasonStatus = ""; // status of the specific fruit or vegetable
 
@@ -14,19 +18,25 @@ function FoodPage({food}: {food: Food}) {
     return (<></>)
   }
 
-  for (let i = 0; i < 12; i++) {
-    if (selectedFood[`month_${i}`] === "x") {
-      seasonMonths.push(monthEng[i]);
-      if (seasonMonths.includes(monthEng[currentMonth])) {
-        seasonStatus = "Currently in season";
-      } else {
-        seasonStatus = "Not in season, check below when it's best to buy it.";
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!selectedFood) {
+      return navigate("/NotFound");
+    }
+  })
+  const months = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+  for (let i = 0; i < months.length; i++) {
+    if (selectedFood && selectedFood.season[i] === true) {
+      seasonMonths.push(months[i]);
+      seasonStatus = 'notInSeason';
+      if (seasonMonths.includes(months[currentMonth])) {
+        seasonStatus = 'inSeason';
       }
     }
   }
 
   const backBtn = useNavigate();
-  const image = selectedFood.image.toLowerCase();
+  const image = selectedFood ? selectedFood.image.toLowerCase() : '';
 
   const monthColor = (month: string) => {
     if (seasonMonths.includes(month)) {
@@ -68,21 +78,22 @@ function FoodPage({food}: {food: Food}) {
   }));
 
   const renderMonths = () => {
-    return monthEng.map((month) => {
+    return months.map((month) => {
+      let userNumber = Number(month) + 1
       return (
         <Grid item
-        className="grid-item"
-        xs={4}
-        key={month.toString()}
-      >
-        <GridBox
-          sx={monthColor(month)}>
-          <Link to={`/month/${month}`}
-          >
-            {month}
-          </Link>
-        </GridBox>
-      </Grid>
+          className="grid-item"
+          xs={4}
+          key={month.toString()}
+        >
+          <GridBox
+            sx={monthColor(month)}>
+            <Link to={`/month/${userNumber}`} //how?
+            >
+              {t(`month_${month}`)}
+            </Link>
+          </GridBox>
+        </Grid>
       );
     });
   }
@@ -94,7 +105,7 @@ function FoodPage({food}: {food: Food}) {
       alignItems="center">
       <BackButton
         variant="outlined"
-        onClick={() => backBtn(-1)}>back
+        onClick={() => backBtn(-1)}>{t('back')}
       </BackButton>
       <Box
         display='flex'
@@ -105,35 +116,36 @@ function FoodPage({food}: {food: Food}) {
         <ImgBox>
           <img className='foodPage-image' src={`../images/${image}.png`} alt={`photo of ${image}`} />
         </ImgBox>
-        <Box  
-        marginLeft= '1em'  
-        marginTop= '0'
-        display= "flex"
-        flexDirection="column"
-        alignItems= "left"
-        justifyContent= "center"
-        width="50%">
-          <Typography variant="h6">
-            {selectedFood.nameEng}:
+        <Box
+          marginLeft='1em'
+          marginTop='0'
+          display="flex"
+          flexDirection="column"
+          alignItems="left"
+          justifyContent="center"
+          width="50%">
+          <Typography variant="h6"> {/* typescript problem */}
+            {t(selectedFood?.description[0].name)}:
           </Typography>
-          <Typography variant="subtitle1">{seasonStatus}</Typography>
+          <Typography>{t(seasonStatus)}</Typography>
         </Box>
       </Box>
-      
+
       {/* BOTTOM GRID WITH MONTHS */}
       <Box
-          sx={{
-          }}>
-          <Typography marginY={2} variant="h6" > Months in season </Typography>
-          <Grid container
-            direction="row"
-            spacing={3}
-          >
-            {renderMonths()}
-          </Grid>
-        </Box>
+        sx={{
+          margin: '1em ',
+        }}>
+        <Typography marginY={2} variant="h6" >
+          {t('monthsInSeason')}
+        </Typography>
+        <Grid container
+          direction="row"
+          spacing={3}
+        >
+          {renderMonths()}
+        </Grid>
+      </Box>
     </Box>
   );
 }
-
-export default FoodPage;
