@@ -21,7 +21,7 @@ export default function App() {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.VITE_BASE_URL}>
       <div className="App">
       {food.length > 0 ?
         <Routes>
