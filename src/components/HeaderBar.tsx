@@ -113,7 +113,7 @@ export default function HeaderBar(props: Props) {
           component="div"
           sx={{ flexGrow: 1, textAlign: "left" }}
         >
-          {t("appTitle")}
+          {t("Header_appTitle")}
         </Typography>
         <Search>
           <SearchIconWrapper>
@@ -129,7 +129,7 @@ export default function HeaderBar(props: Props) {
           </SearchIconWrapper>
           <form onSubmit={e => handleSubmit(e)}>
             <StyledInputBase
-              placeholder={t('search')}
+              placeholder={t('Header_searchBar')}
               inputProps={{ "aria-label": "search" }}
               inputRef={query}
               id="search-bar"
